@@ -33,7 +33,7 @@ def createFolder(): # 폴더 생성
         if not os.path.exists('imsiTemp'): # 폴더이름:imsiTemp의 존재여부 : x
             os.makedirs('imsiTemp') # 'imsiTemp'디렉토리 생성
     except OSError: # os에러
-        print ('Error: Creating directory. ' +  'imsiTemp')
+        print ('Error: Creating directory. ' +  'imsiTemp') # os에러일때 화면에 이 문자열을 출력합니다.
     
 def save_img(num):     # 이미지 저장   
     if(num==1):
@@ -70,7 +70,6 @@ def file_to_counter():
     lis=list(filter(len,lis))  # 빈 공백문자열을 filter로 제거
     
     cnt=Counter(lis) # 리스트를 카운트화
-    print()
     return cnt
        
 # 검색어 순위 데이터 20등 까지 보여주는 함수
@@ -80,18 +79,19 @@ def get_ranklist():
     # 임시 리스트 생성
     li=[]
     li2=[]
-    # url불러오기
+
+    # url을 통한 웹 크롤링
     url="https://www.musinsa.com/ranking/keyword"
     request=requests.get(url)
     html_data=request.text
     soup=BeautifulSoup(html_data,"html.parser")
     
     # 20등 까지의 검색어 순위 리스트 생성
-    for f_text in soup.find_all("li"):
-        li.append(f_text.a['title'])
-    for i in range(20):
-        li2.append(li[i])
-    return li2
+    for f_text in soup.find_all("li"): # <li> 를 모두 찾습니다.
+        li.append(f_text.a['title']) # 그 안의 <a title=?>을 찾아서 임시 리스트1에 넣어줍니다.
+    for i in range(20): # 20번 반복합니다.
+        li2.append(li[i]) # 빈 리스트(li2)안에 li[0~19]까지 넣습니다.
+    return li2 # 리스트를 리턴값으로 줍니다.
 
 # 3일간 최대 많이 나온 검색어 상위 20
 def search_top(cnt):
@@ -100,29 +100,28 @@ def search_top(cnt):
 
     dic = { x:y for x,y in zip(string_list,int_list) } # 두 개의 리스트를 딕셔너리화 (중복제거 x)
     sorted_by_value = sorted(dic.items(), key=operator.itemgetter(1), reverse=True) # value(빈도수)값으로 내림차순 정렬
-    for i in range(0,20,2):
-        print("%10s \t %10s\n"%(sorted_by_value[i][0],sorted_by_value[i+1][0]))
+    for i in range(0,20,2): # 한 행당 0~1 / 2~3 / 4~5 .../ 18~19 
+        print("%10s \t %10s\n"%(sorted_by_value[i][0],sorted_by_value[i+1][0])) # 출력
     return sorted_by_value
 
 
 # 저장된 파일을 바탕으로 막대그래프
-def show_bar(counter):
-        
-    if(os.path.isfile("imsiTemp\\막대.jpg")):
-        image = Image.open("imsiTemp\\막대.jpg")
-        image.show()
-    else:
-        labels=list(counter.keys())
-        values=list(counter.values())
-        fig=plt.figure(figsize=(20,10))
-        plt.title("3일간의 검색 빈도수") # 그래프 제목
-        plt.xlabel("검색어") # x축 내용
-        plt.ylabel("빈도수") # y축 내용
-        plt.bar(labels[:20],values[:20],color=['r','g','b','purple','y']) # 그래프의 색깔
-        plt.savefig('imsiTemp\\막대.jpg') # 그래프를 jpg 파일로 저장
-        plt.close(fig)
-        image = Image.open("imsiTemp\\막대.jpg")
-        image.show()
+def show_bar(counter): #카운터 딕셔너리를 매개변수로 받습니다.
+    if(os.path.isfile("imsiTemp\\막대.jpg")): # 프로그램실행시 자동으로 생성되는 imsiTemp폴더안에 이미지파일이 존재할 경우
+        image = Image.open("imsiTemp\\막대.jpg") # 이미지를 엽니다.
+        image.show() # 이미지 보여주기
+    else: # imsiTemp폴더안에 이미지파일이 존재하지 않을 경우
+        labels=list(counter.keys()) # labels라는 이름의 리스트에 카운터딕셔너리의 keys값을 넣습니다.
+        values=list(counter.values()) # values라는 이름의 리스트에 카운터딕셔너리의 values값을 넣습니다.
+        fig=plt.figure(figsize=(20,10)) # 이미지 크기
+        plt.title("3일간의 검색 빈도수") # 이미지 타이틀
+        plt.xlabel("검색어") # 이미지 x축 이름
+        plt.ylabel("빈도수") # 이미지 y축 이름
+        plt.bar(labels[:20],values[:20],color=['r','g','b','purple','y']) # 20개를 [빨 초 파 보 노]색깔의 순서대로 보여줍니다.
+        plt.savefig('imsiTemp\\막대.jpg') # imsiTemp폴더안에 막대.jpg라는 이름의 이미지파일을 저장합니다.
+        plt.close(fig) # 이미지를 보여주지 않고 닫습니다.
+        image = Image.open("imsiTemp\\막대.jpg") # 이미지를 불러옵니다.
+        image.show() # 불러온 이미지를 보여줍니다.
 
 # 키워드별 판매순으로 브랜드 카운팅
 # 상품 검색후 브랜드 카운팅
