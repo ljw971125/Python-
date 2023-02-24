@@ -18,4 +18,3 @@ def moduleinstall():
         subprocess.check_call([sys.executable,'-m','pip','install','--upgrade','numpy'])
         subprocess.check_call([sys.executable,'-m','pip','install','--upgrade','schedule'])
         print('환경설정 완료!\n')
-    
