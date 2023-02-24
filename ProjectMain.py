@@ -1,14 +1,13 @@
 #실행전
 '''
-1.VSCode ,Jupyter notebook
-2.ipykernel 설치 (VSCode에서 처음 실행시키면 팝업창)
-3.파이썬 3.10.10 64bit (https://www.python.org/ftp/python/3.10.10/python-3.10.10-amd64.exe)
+1. 환경 : VSCode ,Jupyter notebook
+2. ipykernel 설치 (Jupyter notebook으로 실행시)
+3. 파이썬 3.10.10 64bit (https://www.python.org/ftp/python/3.10.10/python-3.10.10-amd64.exe)
 -> Add python.exe to Path 체크 후 install Now
-
 '''
 #%%
 from module import moduleinstall
-moduleinstall()
+moduleinstall() # 모듈 통합 설치 함수
 from project import*
 import auto # 1시간마다 20개씩 자동으로 크롤링하는 모듈
 
