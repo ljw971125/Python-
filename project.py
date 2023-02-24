@@ -237,7 +237,7 @@ def mk_wordcloud(func,num):
 
             high_dic = dict(zip(high_label2,high_value2))
 
-            t_mask = np.array(Image.open('t5_2.jpg'))
+            t_mask = np.array(Image.open('t5_2.jpg')) # 워드클라우드 모양
 
             fontpath='C:\\Windows\\Fonts\\NGULIM.TTF'
 
