@@ -1,6 +1,8 @@
 #%%
 from project import*
 
+import auto # 1시간마다 20개씩 자동으로 크롤링하는 모듈
+
 while(True):
     
     print('*'*20)
@@ -23,8 +25,7 @@ while(True):
         in_num=int(input("보고싶은 메뉴의 번호를 입력하세요.(종료:0)\n"))
 
         if(in_num==1):
-            raise Exception('구현 미완성')
-        
+            li=auto.auto_save_hour()
         # 3일간 최대 많이 나온 검색어 상위 20
         elif(in_num==2):
             search_top(file_to_counter())

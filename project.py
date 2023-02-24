@@ -55,7 +55,7 @@ def deleteFolder(): # 폴더삭제
         print ('Error: Creating directory. ' +  'imsiTemp')
 
 def file_to_counter():  
-    f=open('save2_data.txt','r',encoding='utf-8') # 축적된 파일 열기
+    f=open('save_data.txt','r',encoding='utf-8') # 축적된 파일 열기
     lis=[] # 데이터를 읽어서 저장할 임시 리스트
     lis.append(f.read()) # 임시 리스트에 데이터를 읽어서 저장
     f.close() # 파일닫기
