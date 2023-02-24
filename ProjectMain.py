@@ -49,6 +49,10 @@ while(True):
             deleteFolder()
             print('프로그램을 종료합니다.')
             break
+        
+        elif(in_num < 0 or in_num > 6):
+            print('0~6사이의 값으로 입력해주세요.')
+
         else:
             print("올바르지 않은 입력입니다.")
 
