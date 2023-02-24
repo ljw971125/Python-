@@ -65,6 +65,7 @@ while(True):
         else:
             print("올바르지 않은 입력입니다.")
 
+    #예외처리
     except ValueError as value_e: # 에러를 value_e 객체로 변환
         e_list=[] # 에러 출력문 리스트
         e_list.append(str(value_e).split())
