@@ -217,8 +217,8 @@ def brand_circle():
         plt.close()
         image = Image.open("imsiTemp\\원그래프.jpg")
         image.show()
-    
-# 워드클라우드 공통 함수화
+
+# 3일간 검색어 순위 워드 클라우드, 상품 검색 후 브랜드 워드클라우드
 def mk_wordcloud(func,num):
     if(num==1):
         if(os.path.isfile('imsiTemp\\워드클라우드1.jpg')):
@@ -297,4 +297,3 @@ def mk_wordcloud(func,num):
                 image.show()
     else:
         print("잘못된 인자값입니다. 1 2 중 선택해주세요.")
-# %%
