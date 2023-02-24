@@ -7,7 +7,7 @@
 '''
 #%%
 from module import moduleinstall
-moduleinstall() # 모듈 통합 설치 함수
+moduleinstall() # 모듈 통합 설치
 from project import*
 import auto # 1시간마다 20개씩 자동으로 크롤링하는 모듈
 
