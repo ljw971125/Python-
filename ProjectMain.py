@@ -1,3 +1,11 @@
+#실행전
+'''
+1.VSCode ,Jupyter notebook
+2.ipykernel 설치 (VSCode에서 처음 실행시키면 팝업창)
+3.파이썬 3.10.10 64bit (https://www.python.org/ftp/python/3.10.10/python-3.10.10-amd64.exe)
+-> Add python.exe to Path 체크 후 install Now
+
+'''
 #%%
 from project import*
 
@@ -10,8 +18,8 @@ while(True):
     print('*'*20,'\n')
     print("1) 데이터 크롤링 이후 축적") #미완
     print("2) 3일간 최대 많이 나온 검색어 상위 20") #완
-    print("3) 검색어 순위 워드 클라우드") #완
-    print("4) 검색어 순위 막대 그래프") # 완
+    print("3) 3일간 검색어 순위 워드 클라우드") #완
+    print("4) 3일간 검색어 순위 막대 그래프") # 완
     print("5) 상품 검색 후 브랜드 워드클라우드") #완
     print("6) 상품 검색 후 브랜드 원 그래프") #완
     print("0) 종료\n")
@@ -96,4 +104,6 @@ while(True):
 
     except Exception:
         print("잘못된 입력입니다.")
+
+
 # %%
