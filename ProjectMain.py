@@ -60,10 +60,10 @@ while(True):
             break
         
         elif(in_num < 0 or in_num > 6):
-            print('0~6사이의 값으로 입력해주세요.')
+            print('0~6사이의 값으로 입력해주세요.\n')
 
         else:
-            print("올바르지 않은 입력입니다.")
+            print("올바르지 않은 입력입니다.\n")
 
     #예외처리
     except ValueError as value_e: # 에러를 value_e 객체로 변환
