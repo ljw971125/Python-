@@ -1,3 +1,4 @@
+#홈페이지에서 데이터를 모아 축적하는 프로그램
 import requests
 from bs4 import BeautifulSoup
 import schedule # 일정 시간이나 기간마다 자동으로 돌려주기 위한 모듈
