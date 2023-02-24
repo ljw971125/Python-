@@ -115,11 +115,11 @@ def show_bar(counter):
         labels=list(counter.keys())
         values=list(counter.values())
         fig=plt.figure(figsize=(20,10))
-        plt.title("3일간의 검색 빈도수")
-        plt.xlabel("검색어")
-        plt.ylabel("빈도수")
-        plt.bar(labels[:20],values[:20],color=['r','g','b','purple','y'])
-        plt.savefig('imsiTemp\\막대.jpg')
+        plt.title("3일간의 검색 빈도수") # 그래프 제목
+        plt.xlabel("검색어") # x축 내용
+        plt.ylabel("빈도수") # y축 내용
+        plt.bar(labels[:20],values[:20],color=['r','g','b','purple','y']) # 그래프의 색깔
+        plt.savefig('imsiTemp\\막대.jpg') # 그래프를 jpg 파일로 저장
         plt.close(fig)
         image = Image.open("imsiTemp\\막대.jpg")
         image.show()
