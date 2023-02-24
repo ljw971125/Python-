@@ -1,4 +1,4 @@
-#실행전
+#환경설정
 '''
 1. 환경 : VSCode ,Jupyter notebook
 2. ipykernel 설치 (Jupyter notebook으로 실행시)
