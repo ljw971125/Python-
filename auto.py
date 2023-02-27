@@ -48,11 +48,12 @@ def auto_save_hour():
         fixed_list.append(original_list[i]) # 저장해둔 임시 리스트에서 20개만을 다른 리스트에 저장합니다.
     print(fixed_list) # schedule을 돌릴 때 잘 돌아가는지 확인을 위해 출력을 포함합니다.
     
-    schedule.every(1).hour.do(get_rank) # 1분마다 정의해 둔 get_rank 함수를 실행
-
+    #schedule.every(1).hour.do(get_rank) # 1시간마다 정의해 둔 get_rank 함수를 실행
+    schedule.every(5).seconds.do(get_rank)
     while(True): # 무한 반복
         schedule.run_pending() # 스케줄 작동
         time.sleep(1) # 초같은 경우 시스템이 너무 빠를 수 있어서 1초의 슬립을 주었습니다.
-        if(len(fixed_list)==160): # 정제된 데이터의 길이가 160 즉, 8시간이 되었을 때(10시부터 실행하여 10시,11시,12시,1시,2시,3시,4시,5시)
+        #if(len(fixed_list)==160): # 정제된 데이터의 길이가 160 즉, 8시간이 되었을 때(10시부터 실행하여 10시,11시,12시,1시,2시,3시,4시,5시)
+        if(len(fixed_list)==60):
             savefile() # 파일에 저장
             break # 무한 반복 종료
