@@ -82,7 +82,7 @@ def deleteImg(in_num):
     if(in_num==4):
         os.remove("imsiTemp\\stick.jpg")
     elif(in_num==6):
-        os.remove('imsiTemp\\circle.jpg')
+        os.remove('imsiTemp\\circle.png')
     elif(in_num==3 or in_num==5):
         os.remove('imsiTemp\\wordcloud.jpg')
     else:
@@ -267,41 +267,47 @@ def searchBrand():
 ''' 
 # 브랜드 파일 원그래프
 def brandCircle():
-  
-    brand_counter = searchBrand()
+    if(os.path.isfile("imsiTemp\\circle.png")):        #만약 circle.png라는 파일이 있으면
+        image = Image.open("imsiTemp\\circle.png")     #image 변수에 circle.png파일 대입
+        image.show()                                   #image 변수에 저장된 사진 출력
+    else:                                              #위 조건이 아니라면
+        brand_counter = searchBrand()                 #search_brand 메소드에서 크롤링한 데이터를 brand_counter 변수에 대입
 
-    bc_keys=list(brand_counter.keys())
-    bc_values=list(brand_counter.values())
+        bc_keys=list(brand_counter.keys())             #brand_counter의 key값을 bc_keys 변수에 대입
+        bc_value=list(brand_counter.values())          #brand_counter의 value값을 bc_value 변수에 대입
 
-    high_values = []
-    high_keys=[]
-        
-    for i in range(len(bc_keys)):
-        if(bc_values[i] >= 20):
-            high_values.append(bc_values[i])
-            high_keys.append(bc_keys[i])
-        
-    explode_max = 0
-    explode_value = []
+                                                       #↓↓데이터가 너무 많아 value값이 20이상인 데이터만 출력하는 코드↓↓
 
-    for i in range(len(high_values)):
-        if high_values[i] > explode_max:
-            explode_max = high_values[i]
+        high_keys=[]                                   #value값이 20이상인 key값을 대입하는 변수
+        high_values = []                               #value값이 20이상인 value값을 대입하는 변수
         
-    for i in range(len(high_values)):
-        if high_values[i] == explode_max:
-            explode_value.append(0.1)
-        else:
-            explode_value.append(0)
+        for i in range(len(bc_keys)):                  #bc_keys의 길이만큼 반복
+            if(bc_value[i] >= 20):                     #만약 bc_value의 i번째 값이 20 이상일 때
+                high_keys.append(bc_keys[i])           #high_keys 리스트 변수에 bc_keys의 i번째 값 추가
+                high_values.append(bc_value[i])        #high_values 리스트 변수에 bc_keys의 i번째 값 추가
+                                                       
+        value_max = 0                                  #high_values값의 max값 저장 변수
+        explode_value = []                             #explode: 원그래프 중심에서 멀어지는 정도, explode값 저장 변수
+
+        for i in range(len(high_values)):              #high_values 길이만큼 반복
+            if high_values[i] > value_max:             #만약 high_values의 i번째가 value_max보다 크다면
+                value_max = high_values[i]             #value_max 변수에 high_values의 i번째 대입
+                                                       #↓↓high_values변수의 길이만큼 explode값 추가하는 코드↓↓
+        for i in range(len(high_values)):              #high_values 길이만큼 반복
+            if high_values[i] == value_max:            #만약 hige_values의 i번째 값이 value_max값과 같다면
+                explode_value.append(0.1)              #explode_value값에 0.1 대입, 0.1값은 중심에서 멀어지는 정도의 값이다.
+            else:                                      #조건을 만족하지 못한다면
+                explode_value.append(0)                #explode_value값에 0 대입
         
-      
-    plt.pie(high_values, labels=high_keys, explode=explode_value, autopct='%.2f')
-    plt.savefig('imsiTemp\\circle.jpg')
-    plt.close()
-    for i in range(0,len(high_keys)):
-        print("%s : %d"%(high_keys[i],high_values[i]))
-    image = Image.open("imsiTemp\\circle.jpg")
-    image.show()
+                                                       #원그래프 Figure 생성, high_values대입, labels에 high_keys값 대입, explode에 explode_value값 대입, autopct는 비율표시        
+        plt.pie(high_values, labels=high_keys, explode=explode_value, autopct='%.2f')
+
+        plt.savefig('imsiTemp\\circle.png')            #imsiTemp 폴더에 원그래프.jpg 
+        plt.close()                                    #그래프 Figure 닫기
+        for i in range(0,len(high_keys)):
+            print("%s : %d"%(high_keys[i],high_values[i]))
+        image = Image.open("imsiTemp\\circle.png")     #image 변수에 circle.png파일 대입
+        image.show()                                   #image 변수에 저장된 사진 출력
 
 '''
 함수명: mkWordCloud
