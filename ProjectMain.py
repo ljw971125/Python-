@@ -14,48 +14,51 @@ import auto # 1시간마다 20개씩 자동으로 크롤링하는 모듈
 while(True):
     
     print('*'*20)
-    print("쇼핑몰 검색순위 분석")
+    print("무신사 쇼핑몰의 패션브랜드를 알아보자 목적:트랜드") 
     print('*'*20,'\n')
-    print("1) 데이터 크롤링 이후 축적") 
-    print("2) 3일간 최대 많이 나온 검색어 상위 20") 
-    print("3) 3일간 검색어 순위 워드 클라우드") 
+    print("1) 데이터 크롤링 이후 축적") # bs4
+    print("2) 02/21~23(3)일간 최대 많이 나온 검색어 상위 20") 
+    print("3) 수집한 검색어의 빈도수 워드 클라우드") 
     print("4) 3일간 검색어 순위 막대 그래프") 
-    print("5) 상품 검색 후 브랜드 워드클라우드") 
+    print("5) 상품 검색 후 브랜드 워드클라우드") #셀레니움
     print("6) 상품 검색 후 브랜드 원 그래프") 
     print("0) 종료\n")
 
     createFolder() # 폴더 자동생성
-    hangul()
-    li3=["y","yes","Y","YES","Yes","예","네"]
-    li4=["n","no","N","NO","No","아니오"]
-    
+    toKorean() # 한글화
+
     try:
         in_num=int(input("보고싶은 메뉴의 번호를 입력하세요.(종료:0)\n"))
-
         if(in_num==1):
-            auto.auto_save_hour()
+            auto.auto_save_hour()   # 1시간 마다 데이터 자동축적
+
         # 3일간 최대 많이 나온 검색어 상위 20
         elif(in_num==2):
-            search_top(file_to_counter())
+            searchTop(fileToCounter())  # 빈도수 상위 20개의 검색어
 
         # 검색어 순위 워드 클라우드
         elif(in_num==3):
-            mk_wordcloud(file_to_counter(),1)
+            mkWordCloud(fileToCounter())    # 읽어온 파일 워드클라우드
+            deleteImg(in_num)           # 이미지 삭제
+
         # 검색어 순위 막대 그래프
         elif(in_num==4):
-            show_bar(file_to_counter())
+            showBar(fileToCounter())    # 읽어온 파일 막대그래프
+            deleteImg(in_num)           # 이미지 삭제
 
         # 상품 검색 후 브랜드 워드클라우드
         elif(in_num==5):
-            mk_wordcloud(search_brand(),2)
-            print()
+            mkWordCloud(searchBrand())  # 브랜드를 찾아서 워드클라우드화
+            deleteImg(in_num)           # 이미지 삭제
 
         # 상품 검색 후 브랜드 원 그래프
         elif(in_num==6):
-            brand_circle()
-   
+            brandCircle()               # 브랜드를 찾아서 원 그래프
+            deleteImg(in_num)           # 이미지 삭제
+        
+        # 프로그램 종료
         elif(in_num==0):
-            deleteFolder()
+            deleteFolder()              # imsiTemp폴더(내용있든 없든)삭제              
             print('프로그램을 종료합니다.')
             break
         
