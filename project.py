@@ -2,7 +2,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-#%%
+
 from collections import Counter # 자료형(list, tuple, dict)들에게 확장된 기능을 주기 위해 제작된 파이썬의 내장 모듈
 from bs4 import BeautifulSoup # 파이썬에서 사용할 수 있는 웹데이터 크롤링 라이브러리
 from selenium import webdriver # HTML 값들을 처리함에 있어 동적으로 변하는 웹 페이지의 데이터들까지 크롤링
@@ -17,7 +17,7 @@ from PIL import Image # 이미지를 분석하고 처리하는 라이브러리
 import operator # 파이썬에서 수행 가능한 연산을 효율적으로 처리할 수 있는 모듈
 import os # os(Operating System) 운영체제에서 제공되는 여러 기능을 파이썬에서 수행할 수 있게 해주는 모듈
 import shutil # 폴더 안에 파일이 존재해서 삭제가 안되기 때문에 상관없이 삭제하기 위한 모듈
-#%%
+
 '''
 함수 : 카멜 표기법(Camel case) : 첫문자는 소문자로 사용하며, 단어마다 첫문자를 대문자로 한다.
 변수 : 스네이크 표기법(Snake case) : 소문자만 사용, 각 단어 사이에 언더바(_)를 넣는다.
@@ -66,6 +66,59 @@ def createFolder(): # 폴더 생성
         print ('Error: Creating directory. ' +  'imsiTemp') # os에러일때 화면에 이 문자열을 출력합니다.
 
 '''
+함수명: saveImg
+            변수명      자료형    설명
+매개변수    in_num      int       메뉴 번호
+매개변수    image_name  str       받아온 이미지 이름
+변수        image       imageopen 파일 열기
+변수        exist       str       메뉴에서 반복문을 반복하기 위한 반한값
+변수        noexist     str       메뉴에서 반복문을 종료하기 위한 반환값
+
+              
+반환값 : 없음
+기능설명   :    생성된 이미지파일 삭제
+ '''   
+def saveImg(in_num,image_name):     # 이미지 저장
+    if(in_num==4):
+        if(os.path.isfile('saveImg\\search_frequncy_stick.jpg')):
+            print("같은 이름의 이미지가 이미 존재합니다.")
+        else:
+            image = Image.open("imsiTemp\\stick.jpg") # imsiTemp폴더 안의 이미지를 열어서 image변수에 저장
+            image.save("saveImg\\search_frequncy_stick.jpg","JPEG")
+
+    elif(in_num==3):
+        if(os.path.isfile('saveImg\\search_frequncy_wc.jpg')):
+            print("같은 이름의 이미지가 이미 존재합니다.")        
+        else:
+            image = Image.open("imsiTemp\\wordcloud.jpg")# imsiTemp폴더 안의 이미지를 열어서 image변수에 저장
+            image.save("saveImg\\search_frequncy_wc.jpg","JPEG") # image변수를 현재경로의 매개변수 값으로 저장
+
+    elif(in_num==6): # 원그래프
+        if(os.path.isfile("saveImg\\"+image_name+".jpg")):
+            print("같은 이름의 이미지가 이미 존재합니다.")
+            exist='quit'
+            return exist
+        else:
+            image = Image.open("imsiTemp\\circle.jpg")# imsiTemp폴더 안의 이미지를 열어서 image변수에 저장
+            image.save(("saveImg\\"+image_name+".jpg"),"JPEG") # image변수를 현재경로의 매개변수 값으로 저장
+            noexist='no'
+            return noexist
+        
+    elif(in_num==5) : # 워드클라우드
+        if(os.path.isfile("saveImg\\"+image_name+".jpg")):
+            print("같은 이름의 이미지가 이미 존재합니다.")
+            exist='q'
+            return exist                
+        else:
+            image = Image.open("imsiTemp\\circle.jpg")# imsiTemp폴더 안의 이미지를 열어서 image변수에 저장
+            image.save(("saveImg\\"+image_name+".jpg"),"JPEG") # image변수를 현재경로의 매개변수 값으로 저장
+            noexist='n'
+            return noexist      
+    else:
+        print("메인을 수정하세요 매개변수가 잘못되었습니다.")
+
+
+'''
 함수명: deleteImg
             변수명   자료형    설명
 매개변수 : in_num    int       메뉴 번호 (코드라인 11~20 참조)
@@ -76,13 +129,12 @@ def createFolder(): # 폴더 생성
 반환값 : 없음
 기능설명   :    생성된 이미지파일 삭제
  '''   
-
 #이미지 삭제
 def deleteImg(in_num):
     if(in_num==4):
         os.remove("imsiTemp\\stick.jpg")
     elif(in_num==6):
-        os.remove('imsiTemp\\circle.png')
+        os.remove('imsiTemp\\circle.jpg')
     elif(in_num==3 or in_num==5):
         os.remove('imsiTemp\\wordcloud.jpg')
     else:
@@ -302,11 +354,11 @@ def brandCircle():
                                                        #원그래프 Figure 생성, high_values대입, labels에 high_keys값 대입, explode에 explode_value값 대입, autopct는 비율표시        
         plt.pie(high_values, labels=high_keys, explode=explode_value, autopct='%.2f')
 
-        plt.savefig('imsiTemp\\circle.png')            #imsiTemp 폴더에 원그래프.jpg 
+        plt.savefig('imsiTemp\\circle.jpg')            #imsiTemp 폴더에 원그래프.jpg 
         plt.close()                                    #그래프 Figure 닫기
         for i in range(0,len(high_keys)):
             print("%s : %d"%(high_keys[i],high_values[i]))
-        image = Image.open("imsiTemp\\circle.png")     #image 변수에 circle.png파일 대입
+        image = Image.open("imsiTemp\\circle.jpg")     #image 변수에 circle.png파일 대입
         image.show()                                   #image 변수에 저장된 사진 출력
 
 '''
@@ -330,7 +382,8 @@ def mkWordCloud(func_counter):
     else:
         fc_keys=list(func_counter.keys())
         fc_values=list(func_counter.values())
-
+        for i in range(len(fc_keys)):
+            fc_keys[i] = fc_keys[i].replace(' ', '')
         wordcloud_dict = dict(zip(fc_keys,fc_values))
         t_mask = np.array(Image.open('image\\t5_2.jpg'))
 
