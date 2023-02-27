@@ -115,7 +115,7 @@ def deleteFolder(): # 폴더삭제
 기능설명: 파일에서 데이터를 읽어와 Counter로 반환함
 '''    
 def fileToCounter():  
-    f=open('save_data.txt','r',encoding='utf-8') # 축적된 파일 열기
+    f=open('rankdata\\save_data.txt','r',encoding='utf-8') # 축적된 파일 열기
     file_list=[] # 파일데이터를 읽어서 저장할 임시 리스트
     file_list.append(f.read()) # 임시 리스트에 데이터를 읽어서 저장
     f.close() # 파일닫기
@@ -327,7 +327,7 @@ def mkWordCloud(func_counter):
         fc_values=list(func_counter.values())
 
         wordcloud_dict = dict(zip(fc_keys,fc_values))
-        t_mask = np.array(Image.open('t5_2.jpg'))
+        t_mask = np.array(Image.open('image\\t5_2.jpg'))
 
         fontpath='C:\\Windows\\Fonts\\NGULIM.TTF'
 
