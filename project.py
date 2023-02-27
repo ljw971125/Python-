@@ -185,19 +185,19 @@ def showBar(fileToCounter): #카운터 딕셔너리를 매개변수로 받습니
             변수명              자료형      설명
 매개변수 :  없음
 반환값1:    brand_counter       Counter     웹 크롤링해서 가져온 브랜드 리스트를 Counter로 변환 후 반환
-반환값2:    1                   int         
+반환값2:    1                   int         입력을 중지할 시 임의의 리턴값 반환
 변수   :    str_list            list        받아온 fileToCounter에서 key값들을 list로 변환
 변수   :    int_list            list        받아온 fileToCounter에서 value값들을 list로 변환
 변수   :    list_to_dict        dict        str_list, int_list로 딕셔너리로 변환
 변수   :    sorted_by_value     dict        list_to_dict의 value값을 기준으로 내림차순 정렬
 변수   :    sorted_list         list        value값으로 정렬된 딕셔너리의 key값 20개 리스트에 저장
-변수   :    input_product       input       상품 검색
-변수   :    data_url            
-변수   :    brand_name
-변수   :    brand_li
-변수   :    brand_counter
-기능설명: 웹 크롤링으로 상품 검색 후 브랜드를 읽어와서 Counter반환
-''' 
+변수   :    input_product       str         상품 검색
+변수   :    data_url            str         상품 검색 후 url
+변수   :    brand_name          str         상품 브랜드이름
+변수   :    brand_li            list        상품 브랜드리스트
+변수   :    brand_counter       counter     상품에 대한 브랜드 빈도수
+기능설명: 무신사 웹 크롤링으로 상품 검색 후 판매순 1년기준 상위제품 900개 브랜드를 읽어와서 Counter반환
+'''
 # 키워드별 판매순으로 브랜드 카운팅
 # 상품 검색후 브랜드 카운팅
 def searchBrand():
@@ -215,7 +215,7 @@ def searchBrand():
         input_product = input('상품명을 입력해주세요{메뉴화면 돌아가기:y}.')
         if  input_product in sorted_list:
             driver=webdriver.Chrome("C:\chromedriver\chromedriver.exe") #크롬드라이버
-            driver.get("https://www.musinsa.com/app/") 
+            driver.get("https://www.musinsa.com/app/") # 무신사 홈페이지
 
             # 크롬 드라이버 동작 부분
             driver.find_element(By.XPATH,'//*[@id="search_query"]').click()
