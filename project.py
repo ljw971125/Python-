@@ -215,7 +215,7 @@ def searchBrand():
         input_product = input('상품명을 입력해주세요{메뉴화면 돌아가기:y}.')
         if  input_product in sorted_list:
             driver=webdriver.Chrome("C:\chromedriver\chromedriver.exe") #크롬드라이버
-            driver.get("https://www.musinsa.com/app/") # 무신사 홈페이지
+            driver.get("https://www.musinsa.com/app/") # 무신사
 
             # 크롬 드라이버 동작 부분
             driver.find_element(By.XPATH,'//*[@id="search_query"]').click()
