@@ -1,7 +1,8 @@
 #환경설정
 '''
 1. 환경 : VSCode ,Jupyter notebook
-2. ipykernel 설치 (※Jupyter notebook으로 실행시)
+2. https://code.visualstudio.com/docs/?dv=win(vscode 실행시)
+2-1. ipykernel 설치 (※Jupyter notebook으로 실행시)
 3. 파이썬 3.10.10 64bit (https://www.python.org/ftp/python/3.10.10/python-3.10.10-amd64.exe)
 -> Add python.exe to Path 체크 후 install Now
 '''
@@ -10,12 +11,11 @@ from module import moduleinstall
 moduleinstall() # 모듈 통합 설치
 from project import*
 import auto # 1시간마다 20개씩 자동으로 크롤링하는 모듈
-
+print("\n\t\t\t2조 : 전장현 // 이지운 // 김민수 // 장윤종 // 장기헌")
 while(True):
-    
-    print('*'*20)
-    print("무신사 쇼핑몰의 패션브랜드를 알아보자 목적:트랜드") 
-    print('*'*20,'\n')
+    print('*'*100)
+    print("\t\t\t\t무신사 쇼핑몰의 데이터 수집 및 분석") 
+    print('*'*100,'\n')
     print("1) 데이터 크롤링 이후 축적") # bs4
     print("2) 02/21~23(3)일간 최대 많이 나온 검색어 상위 20") 
     print("3) 수집한 검색어의 빈도수 워드 클라우드") 
