@@ -28,7 +28,8 @@ while(True):
     print("6) 상품 검색 후 브랜드 원 그래프") 
     print("0) 종료\n")
 
-    createFolder() # 폴더 자동생성
+    createImsiFolder() # 임시폴더 자동생성
+    createImgFolder() # 저장할 이미지 폴더 자동생성
     toKorean() # 한글화
 
     try:
@@ -125,10 +126,9 @@ while(True):
                 print("잘못 입력하셨습니다.(저장하지 않습니다.)")
                 deleteImg(in_num) # imsiTemp폴더에 생성된 이미지 삭제
                 print()               
-
         # 프로그램 종료
         elif(in_num==0):
-            deleteFolder()              # imsiTemp폴더(내용있든 없든)삭제              
+            deleteimsiFolder()              # imsiTemp폴더(내용있든 없든)삭제              
             print('프로그램을 종료합니다.')
             break
         

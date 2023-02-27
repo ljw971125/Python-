@@ -52,19 +52,32 @@ def toKorean(): # 한글 함수
     plt.rcParams['axes.unicode_minus'] = False # 한글 폰트 사용시 마이너스 폰트 깨짐 해결
 
 '''
- 함수명: createFolder
+ 함수명: createImsiFolder
             변수명    자료형    설명
 매개변수 : 없음
 반환값 : 없음
 기능설명: imsiTemp 폴더 생성
 '''             
-def createFolder(): # 폴더 생성
+def createImsiFolder(): # 폴더 생성
     try:
         if not os.path.exists('imsiTemp'): # 폴더이름:imsiTemp의 존재여부 : x
             os.makedirs('imsiTemp') # 'imsiTemp'디렉토리 생성
     except OSError: # os에러
         print ('Error: Creating directory. ' +  'imsiTemp') # os에러일때 화면에 이 문자열을 출력합니다.
 
+'''
+ 함수명: createImgFolder
+            변수명    자료형    설명
+매개변수 : 없음
+반환값 : 없음
+기능설명: saveImg 폴더 생성
+'''             
+def createImgFolder(): # 폴더 생성
+    try:
+        if not os.path.exists('saveImg'): # 폴더이름:imsiTemp의 존재여부 : x
+            os.makedirs('saveImg') # 'imsiTemp'디렉토리 생성
+    except OSError: # os에러
+        print ('Error: Creating directory. ' +  'saveImg') # os에러일때 화면에 이 문자열을 출력합니다.
 '''
 함수명: saveImg
             변수명      자료형    설명
@@ -142,14 +155,14 @@ def deleteImg(in_num):
 
         
 '''
-함수명: deleteFolder
+함수명: deleteimsiFolder
 매개변수 : 없음
 반환값 : 없음
 기능설명: imsiTemp 폴더 삭제
 '''  
 
 
-def deleteFolder(): # 폴더삭제
+def deleteimsiFolder(): # 폴더삭제
     try:
         if os.path.exists('imsiTemp'): # 'imsiTemp' 디렉토리가 존재하면
             shutil.rmtree('imsiTemp') # 전체삭제(파일,폴더 전부다)
