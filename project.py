@@ -332,8 +332,8 @@ def searchBrand():
 ''' 
 # 브랜드 파일 원그래프
 def brandCircle():
-    if(os.path.isfile("imsiTemp\\circle.png")):        #만약 circle.png라는 파일이 있으면
-        image = Image.open("imsiTemp\\circle.png")     #image 변수에 circle.png파일 대입
+    if(os.path.isfile("imsiTemp\\circle.jpg")):        #만약 circle.png라는 파일이 있으면
+        image = Image.open("imsiTemp\\circle.jpg")     #image 변수에 circle.png파일 대입
         image.show()                                   #image 변수에 저장된 사진 출력
     else:                                              #위 조건이 아니라면
         brand_counter = searchBrand()                 #search_brand 메소드에서 크롤링한 데이터를 brand_counter 변수에 대입
@@ -345,11 +345,16 @@ def brandCircle():
 
         high_keys=[]                                   #value값이 20이상인 key값을 대입하는 변수
         high_values = []                               #value값이 20이상인 value값을 대입하는 변수
+        del_word_list=['[72시간세일]','[브랜드 위크]','[위클리특가]','[오늘만이가격]','72시간세일','브랜드 위크','위클리특가','오늘만이가격']
         
         for i in range(len(bc_keys)):                  #bc_keys의 길이만큼 반복
-            if(bc_value[i] >= 20):                     #만약 bc_value의 i번째 값이 20 이상일 때
-                high_keys.append(bc_keys[i])           #high_keys 리스트 변수에 bc_keys의 i번째 값 추가
-                high_values.append(bc_value[i])        #high_values 리스트 변수에 bc_keys의 i번째 값 추가
+            if(bc_value[i] >= 20):                    #만약 bc_value의 i번째 값이 20 이상일 때
+                if bc_keys[i] in del_word_list:
+                    pass
+                else:
+                    high_values.append(bc_value[i])
+                    high_keys.append(bc_keys[i])
+                
                                                        
         value_max = 0                                  #high_values값의 max값 저장 변수
         explode_value = []                             #explode: 원그래프 중심에서 멀어지는 정도, explode값 저장 변수
@@ -395,8 +400,11 @@ def mkWordCloud(func_counter):
     else:
         fc_keys=list(func_counter.keys())
         fc_values=list(func_counter.values())
+        del_word_list=['[72시간세일]','[브랜드위크]','[위클리특가]','[오늘만이가격]','72시간세일','브랜드위크','위클리특가','오늘만이가격']
+
         for i in range(len(fc_keys)):
             fc_keys[i] = fc_keys[i].replace(' ', '')
+
         wordcloud_dict = dict(zip(fc_keys,fc_values))
         t_mask = np.array(Image.open('image\\t5_2.jpg'))
 
@@ -405,7 +413,7 @@ def mkWordCloud(func_counter):
         wc = WordCloud(
             background_color='white',
             relative_scaling=0.2, 
-            mask=t_mask, stopwords=['counter'], 
+            mask=t_mask, stopwords=del_word_list, 
             colormap ="Greens",
             font_path = fontpath
 

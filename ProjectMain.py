@@ -86,7 +86,7 @@ while(True):
             s=input("이미지를 저장하시겠습니까? y/n ")
             if(s in liYES):
                 while(True):
-                    image_name1=input("저장하고 싶은 이미지파일명 : (영어로 입력해주세요)") 
+                    image_name1=input("저장하고 싶은 이미지파일명 : ") 
                     answer1=saveImg(in_num,image_name1) # answer변수에 리턴값 받아오기
                     if(answer1=='q'): # 받아온 answer변수의 값이 q일때 image_name값 다시 입력
                         continue  # 다시 반복
@@ -109,7 +109,7 @@ while(True):
             s=input("이미지를 저장하시겠습니까? y/n ")
             if(s in liYES):
                 while(True):
-                    image_name=input("저장하고 싶은 이미지파일명 : (영어로 입력해주세요)")
+                    image_name=input("저장하고 싶은 이미지파일명 : ")
                     answer=saveImg(in_num,image_name) # answer변수에 리턴값 받아오기
                     if(answer=='quit'): # 받아온 answer변수의 값이 quit일때 image_name값 다시 입력
                         continue # 다시 반복

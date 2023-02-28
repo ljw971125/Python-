@@ -13,14 +13,14 @@ def autoSaveHour():
     def saveFile():
         #if(os.path.isfile('rankdata\\save_data.txt')): # 경로상에 save_data.txt 이름의 파일이 있을 경우
         if(os.path.isfile('rankdata\\save_data2.txt')): # 경로상에 save_data2.txt 이름의 파일이 있을 경우
-            #f=open('save_data.txt','a',encoding='utf-8') # 파일 append 방식으로 열기
+            #f=open('rankdata\\save_data.txt','a',encoding='utf-8') # 파일 append 방식으로 열기
             f=open('rankdata\\save_data2.txt','a',encoding='utf-8')
             for i in fixed_list: # 리스트 값 가져오기
                 f.write(i+'\n') # '\n' 으로 줄을 띄우면서 파일에 씁니다
         #else: # 경로상에 save_data.txt 이름의 파일이 없을 경우
             #f=open('rankdata\\save_data.txt','w',encoding='utf-8') # 파일 write 방식으로 열기(write방식으로 없을 경우 자동 생성)
         else:
-            f=open('rankdata\\save_data2.txt','a',encoding='utf-8')
+            f=open('rankdata\\save_data2.txt','w',encoding='utf-8')
             for i in fixed_list: 
                 f.write(i+'\n') # '\n' 으로 줄을 띄우면서 파일에 씁니다
         f.close() # 파일 닫기
