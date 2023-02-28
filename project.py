@@ -33,6 +33,30 @@ in_num      메뉴
  0         프로그램 종료
 '''
 
+# 저장시의 답변을 리스트로 했습니다.
+liYES=['y',"yes","Y","YES","Yes","네","예","넵","옙","ㅔ","ㅇ","ㅇㅋ","그래","그래요","그래용","ㅛ"]
+liNO=["n","no","N","NO","No","아니요","x","X","ㄴ","아니","싫어","싫어요","안할래요","안 할래요","ㅜ"]
+
+
+'''
+함수명: menu
+            변수명    자료형    설명
+매개변수 : 없음
+반환값 : 없음
+기능설명: 메뉴 UI
+'''  
+def menu():
+    print('*'*50)
+    print("\t무신사 쇼핑몰의 데이터 수집 및 분석") 
+    print('*'*50,'\n')
+    print("1) 데이터 크롤링 이후 축적") # bs4
+    print("2) 02/21~23(3)일간 최대 많이 나온 검색어 상위 20") 
+    print("3) 수집한 검색어의 빈도수 워드 클라우드") 
+    print("4) 3일간 검색어 순위 막대 그래프") 
+    print("5) 상품 검색 후 브랜드 워드클라우드") #셀레니움
+    print("6) 상품 검색 후 브랜드 원 그래프") 
+    print("0) 종료\n")
+
 
 '''
  함수명: ToKorean
@@ -41,7 +65,6 @@ in_num      메뉴
 반환값 : 없음
 기능설명: 한글 깨짐 해결
 '''    
-
 def toKorean(): # 한글 함수
     if platform.system() == 'Darwin': # 맥
         plt.rc('font', family='AppleGothic') 
@@ -78,57 +101,145 @@ def createImgFolder(): # 폴더 생성
             os.makedirs('saveImg') # 'imsiTemp'디렉토리 생성
     except OSError: # os에러
         print ('Error: Creating directory. ' +  'saveImg') # os에러일때 화면에 이 문자열을 출력합니다.
-'''
-함수명: saveImg
-            변수명      자료형    설명
-매개변수    in_num      int       메뉴 번호
-매개변수    image_name  str       받아온 이미지 이름
-변수        image       imageopen 파일 열기
-변수        exist       str       메뉴에서 반복문을 반복하기 위한 반한값
-변수        noexist     str       메뉴에서 반복문을 종료하기 위한 반환값
 
+'''
+함수명: staticImgExist
+            변수명          자료형      설명
+매개변수    imsiImg_name      str       받아올 임시폴더의 이미지 이름
+매개변수    image_name        str       받아온 이미지 이름
+변수        image            imageopen  파일 열기
+            
+반환값 : 없음
+기능설명   :   정적인 이미지(메뉴 3,4번) 이미지 저장
+ '''
+def staticImgExist(imsiImg_name,image_name):
+    if(os.path.isfile(('saveImg\\'+image_name))):
+        print("같은 이름의 이미지가 이미 존재합니다.")
+    else:
+        image = Image.open("imsiTemp\\"+imsiImg_name) # imsiTemp폴더 안의 이미지를 열어서 image변수에 저장
+        image.save(("saveImg\\"+image_name),"JPEG")
+        
+'''
+함수명: dynamicImgExist
+            변수명          자료형      설명
+매개변수    imsiImg_name    str       받아올 임시폴더의 이미지 이름
+매개변수    image_name      str       받아온 이미지 이름
+변수        image           imageopen  파일 열기
+            
+반환값 :    rename          str         파일이 존재할 경우 반복을 위해 반환시켜줄 문자열
+반환값 :    no_renmae       str         파일이 존재하지 않을 경우 반복문을 탈출하기 위한 반환값
+
+기능설명   :   동적인 이미지(메뉴 5,6번) 이미지 저장
+ '''
+def dynamicImgExist(imsiImg_name,image_name):
+    if(os.path.isfile("saveImg\\"+image_name+".jpg")):
+        print("같은 이름의 이미지가 이미 존재합니다.")
+        rename='rename'
+        return rename
+    else:
+        image = Image.open(("imsiTemp\\"+imsiImg_name))# imsiTemp폴더 안의 이미지를 열어서 image변수에 저장
+        image.save(("saveImg\\"+image_name+".jpg"),"JPEG") # image변수를 현재경로의 매개변수 값으로 저장
+        no_rename='no'
+        return no_rename
+        
+'''
+함수명: answerStaticShow
+            변수명      자료형      설명
+매개변수    in_num      int         메뉴 번호
+변수        question    input(str)  저장할지 물어보는 문자열
+변수        exist       str         메뉴에서 반복문을 반복하기 위한 반한값
+변수        noexist     str         메뉴에서 반복문을 종료하기 위한 반환값
+사용함수    saveImg     function    이미지 저장 함수
+사용함수    deleteImg   function    imsiTemp안의 이미지 삭제 함수
               
 반환값 : 없음
-기능설명   :    생성된 이미지파일 삭제
- '''   
+기능설명   :  정적 이미지 저장 질문 후 저장
+ '''
+def answerStaticShow(in_num):
+    question=input("\n이미지를 저장하시겠습니까? (Y/N)\n")
+    if(question in liYES):
+        print("정적이라 정해진 이름으로 저장합니다.")
+        saveImg(in_num,'') # saveImg폴더안에 이미지 저장
+        deleteImg(in_num) # imsiTemp폴더에 생성된 이미지 삭제
+        print()
+    elif(question in liNO):
+        print("저장하지 않습니다.")
+        deleteImg(in_num) # imsiTemp폴더에 생성된 이미지 삭제
+        print()
+    else:
+        print("잘못 입력하셨습니다.(저장하지 않습니다.)")
+        deleteImg(in_num) # imsiTemp폴더에 생성된 이미지 삭제
+        print()
+
+'''
+함수명: dynamicStaticShow
+            변수명      자료형      설명
+매개변수    in_num      int         메뉴 번호
+변수        question    input(str)  저장할지 물어보는 문자열
+변수        img_name    input(str)  저장할 때 입력받을 파일이름 
+사용함수    saveImg     function    이미지 저장 함수
+사용함수    deleteImg   function    imsiTemp안의 이미지 삭제 함수
+              
+반환값 : 없음
+기능설명   :  동적 이미지 저장 질문 후 저장
+ '''
+def answerDynamicShow(in_num):
+    question=input("\n이미지를 저장하시겠습니까? (Y/N)\n")
+    if(question in liYES):
+        while(True):
+            image_name=input("저장하고 싶은 이미지파일명 : ") 
+            answer=saveImg(in_num,image_name) # answer변수에 리턴값 받아오기
+            if(answer=='rename'): # 받아온 answer변수의 값이 q일때 image_name값 다시 입력
+                continue  # 다시 반복
+            else: # 받아온 answer변수의 값이 no일때 이미지 저장
+                break # 반복 종료
+        deleteImg(in_num) # imsiTemp폴더에 생성된 이미지 삭제
+        print()
+    elif(question in liNO):
+        print("저장하지 않습니다.")
+        deleteImg(in_num) # imsiTemp폴더에 생성된 이미지 삭제
+        print()
+    else:
+        print("잘못 입력하셨습니다.(저장하지 않습니다.)")
+        deleteImg(in_num) # imsiTemp폴더에 생성된 이미지 삭제
+        print()
+
+
+'''
+함수명: saveImg
+            변수명              자료형      설명
+매개변수    in_num              int         메뉴 번호
+매개변수    image_name          str         받아온 이미지 이름 (정적일때는 지정된이름값을 넣어주었습니다.)
+변수        imsiImg_name        str         imsiTemp폴더안에 자동 저장될 이미지 이름 메뉴마다 다름
+변수        image               imageopen   파일 열기
+변수        answer              str         동적인 이미지저장 때의 반환값 저장할 변수
+사용함수    staticImgExist      function    
+사용함수            
+반환값 : 없음
+기능설명   :   이미지 저장
+ '''
 def saveImg(in_num,image_name):     # 이미지 저장
     if(in_num==4):
-        if(os.path.isfile('saveImg\\search_frequncy_stick.jpg')):
-            print("같은 이름의 이미지가 이미 존재합니다.")
-        else:
-            image = Image.open("imsiTemp\\stick.jpg") # imsiTemp폴더 안의 이미지를 열어서 image변수에 저장
-            image.save("saveImg\\search_frequncy_stick.jpg","JPEG")
+        imsiImg_name='막대.jpg'
+        image_name='막대.jpg'
+        staticImgExist(imsiImg_name,image_name)
 
     elif(in_num==3):
-        if(os.path.isfile('saveImg\\search_frequncy_wc.jpg')):
-            print("같은 이름의 이미지가 이미 존재합니다.")        
-        else:
-            image = Image.open("imsiTemp\\wordcloud.jpg")# imsiTemp폴더 안의 이미지를 열어서 image변수에 저장
-            image.save("saveImg\\search_frequncy_wc.jpg","JPEG") # image변수를 현재경로의 매개변수 값으로 저장
+        imsiImg_name='wordcloud.jpg'
+        image_name='SF_wordcloud.jpg'
+        staticImgExist(imsiImg_name,image_name)
 
     elif(in_num==6): # 원그래프
-        if(os.path.isfile("saveImg\\"+image_name+".jpg")):
-            print("같은 이름의 이미지가 이미 존재합니다.")
-            exist='quit'
-            return exist
-        else:
-            image = Image.open("imsiTemp\\circle.jpg")# imsiTemp폴더 안의 이미지를 열어서 image변수에 저장
-            image.save(("saveImg\\"+image_name+".jpg"),"JPEG") # image변수를 현재경로의 매개변수 값으로 저장
-            noexist='no'
-            return noexist
-        
+        imsiImg_name='circle.jpg'
+        answer=dynamicImgExist(imsiImg_name,image_name)
+        return answer
+    
     elif(in_num==5) : # 워드클라우드
-        if(os.path.isfile("saveImg\\"+image_name+".jpg")):
-            print("같은 이름의 이미지가 이미 존재합니다.")
-            exist='q'
-            return exist                
-        else:
-            image = Image.open("imsiTemp\\wordcloud.jpg")# imsiTemp폴더 안의 이미지를 열어서 image변수에 저장
-            image.save(("saveImg\\"+image_name+".jpg"),"JPEG") # image변수를 현재경로의 매개변수 값으로 저장
-            noexist='n'
-            return noexist      
+        imsiImg_name='wordcloud.jpg'
+        answer=dynamicImgExist(imsiImg_name,image_name)
+        return answer
     else:
-        print("메인을 수정하세요 매개변수가 잘못되었습니다.")
+        print("메인을 수정하세요 매개변수가 잘못되었습니다.\n")
 
 
 '''
@@ -144,16 +255,35 @@ def saveImg(in_num,image_name):     # 이미지 저장
  '''   
 #이미지 삭제
 def deleteImg(in_num):
-    if(in_num==4):
-        os.remove("imsiTemp\\stick.jpg")
-    elif(in_num==6):
-        os.remove('imsiTemp\\circle.jpg')
-    elif(in_num==3 or in_num==5):
-        os.remove('imsiTemp\\wordcloud.jpg')
+    f_name='imsiTemp'
+    if(os.path.isdir(f_name)):
+        if(in_num==4):
+            img_name='막대.jpg'
+            removeImgFile(f_name,img_name)
+        elif(in_num==6):
+            img_name='circle.jpg'
+            removeImgFile(f_name,img_name)
+        elif(in_num==3 or in_num==5):
+            img_name='wordcloud.jpg'
+            removeImgFile(f_name,img_name)
+        else:
+            print("메인을 수정하세요 매개변수가 잘못받아졌습니다.\n")
     else:
-        print("메인을 수정하세요 매개변수가 잘못받아졌습니다.")
+        print("폴더가 없습니다.\n")
+'''
+함수명: removeImgFile
+            변수명          자료형          설명
+매개변수 : f_name           str             폴더이름
+매개변수 : img_name         str             저장할 파일 이름
+반환값 : 없음
+기능설명 : 이미지 삭제
+'''         
+def removeImgFile(f_name,img_name):
+    if(os.path.isfile((f_name+'\\'+img_name))):
+        os.remove((f_name+'\\'+img_name))
+    else:
+        print(img_name+"가 없습니다.\n")
 
-        
 '''
 함수명: deleteimsiFolder
 매개변수 : 없음
@@ -167,7 +297,7 @@ def deleteimsiFolder(): # 폴더삭제
         if os.path.exists('imsiTemp'): # 'imsiTemp' 디렉토리가 존재하면
             shutil.rmtree('imsiTemp') # 전체삭제(파일,폴더 전부다)
     except OSError:
-        print ('Error: Creating directory. ' +  'imsiTemp')
+        print ('Error: Creating directory. ' +  'imsiTemp\n')
 
 '''
  함수명: fileToCounter
@@ -209,14 +339,13 @@ def fileToCounter():
 
 # 3일간 최대 많이 나온 검색어 상위 20
 def searchTop(fileToCounter):
-    
     str_list=list(fileToCounter.keys()) # 읽어온 카운터의 키값(상품명)을 리스트로 저장
     int_list=list(fileToCounter.values()) # 읽어온 카운터의 value값(빈도수)를 리스트로 저장
 
     list_to_dict = { x:y for x,y in zip(str_list,int_list) } # 두 개의 리스트를 딕셔너리화 (중복제거 x)
     sorted_by_value = sorted(list_to_dict.items(), key=operator.itemgetter(1), reverse=True) # value(빈도수)값으로 내림차순 정렬
     for i in range(0,20,2): # 한 행당 0~1 / 2~3 / 4~5 .../ 18~19 
-        print("%10s \t %10s"%(sorted_by_value[i][0],sorted_by_value[i+1][0]),"\n") # 출력
+        print("%10s \t %10s"%(sorted_by_value[i][0],sorted_by_value[i+1][0])) # 출력
 
 '''
 함수명: showBar
@@ -230,6 +359,7 @@ def searchTop(fileToCounter):
 ''' 
 # 저장된 파일을 바탕으로 막대그래프
 def showBar(fileToCounter): #카운터 딕셔너리를 매개변수로 받습니다.
+
     str_list=list(fileToCounter.keys()) # labels라는 이름의 리스트에 카운터딕셔너리의 keys값을 넣습니다.
     int_list=list(fileToCounter.values()) # values라는 이름의 리스트에 카운터딕셔너리의 values값을 넣습니다.
     fig=plt.figure(figsize=(20,10)) # 이미지 크기
@@ -237,13 +367,13 @@ def showBar(fileToCounter): #카운터 딕셔너리를 매개변수로 받습니
     plt.xlabel("검색어") # 이미지 x축 이름
     plt.ylabel("빈도수") # 이미지 y축 이름
     plt.bar(str_list[:20],int_list[:20],color=['r','g','b','purple','y']) # 20개를 [빨 초 파 보 노]색깔의 순서대로 보여줍니다.
-    plt.savefig('imsiTemp\\stick.jpg') # imsiTemp폴더안에 막대.jpg라는 이름의 이미지파일을 저장합니다.
+    plt.savefig('imsiTemp\\막대.jpg') # imsiTemp폴더안에 막대.jpg라는 이름의 이미지파일을 저장합니다.
     plt.close(fig) # 이미지를 보여주지 않고 닫습니다.
+    print()
     for i in range(20):
         print("%s : %d"%(str_list[i],int_list[i]))
-    image = Image.open("imsiTemp\\stick.jpg") # 이미지를 불러옵니다.
+    image = Image.open("imsiTemp\\막대.jpg") # 이미지를 불러옵니다.
     image.show() # 불러온 이미지를 보여줍니다.
-    print()
 
 '''
 함수명: searchBrand
@@ -277,7 +407,7 @@ def searchBrand():
         sorted_list.append(sorted_by_value[i][0])
 
     while(True):
-        input_product = input('상품명을 입력해주세요.(메뉴화면 돌아가기:y)')
+        input_product = input('\n'+'상품명을 입력해주세요{메뉴화면 돌아가기:y}.\n')
         if  input_product in sorted_list:
             driver=webdriver.Chrome("C:\chromedriver\chromedriver.exe") #크롬드라이버
             driver.get("https://www.musinsa.com/app/") # 무신사
@@ -379,7 +509,6 @@ def brandCircle():
             print("%s : %d"%(high_keys[i],high_values[i]))
         image = Image.open("imsiTemp\\circle.jpg")     #image 변수에 circle.png파일 대입
         image.show()                                   #image 변수에 저장된 사진 출력
-        print()
 
 '''
 함수명: mkWordCloud
@@ -396,6 +525,7 @@ def brandCircle():
 
 # 3일간 검색어 순위 워드 클라우드, 상품 검색 후 브랜드 워드클라우드
 def mkWordCloud(func_counter):
+
     if (func_counter==1):
         print('메뉴화면 이동')
     else:
@@ -428,4 +558,3 @@ def mkWordCloud(func_counter):
             print("%s : %d"%(fc_keys[i],fc_values[i]))
         wordcloud_img=Image.open('imsiTemp\\wordcloud.jpg')
         wordcloud_img.show()
-        print()

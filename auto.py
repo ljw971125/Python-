@@ -118,7 +118,7 @@ def exit():
 매개변수 :   없음
 반환값 : 없음
 기능설명 : 스케줄을 돌려서 정해진 시간까지 1시간마다 txt파일에 저장합니다.
-중요사항 : 132번째 줄에 at 뒤에 숫자를 시간으로 변경해 주셔야 정해진 시간까지 자동으로 돌아갑니다.
+중요사항 : 127번째 줄에 at 뒤에 숫자를 시간으로 변경해 주셔야 정해진 시간까지 자동으로 돌아갑니다.
 '''      
 # 스케줄 작동 함수    
 def autoSaveHour():
@@ -129,11 +129,11 @@ def autoSaveHour():
         #schedule.every(1).hour.do(getRank) # 1시간마다 정의해 둔 get_rank 함수를 실행    
         # 시험용
         schedule.every(5).seconds.do(getRank)
-        schedule.every().day.at("17:20").do(exit)
+        schedule.every().day.at("15:52").do(exit)
         while(True): # 무한 반복
             schedule.run_pending() # 스케줄 작동
             time.sleep(1) # 초같은 경우 시스템이 너무 빠를 수 있어서 1초의 슬립을 주었습니다.
 
     except SystemExit:
-        print("종료")
+        print("자동 수집을 종료합니다. (save_data2.txt에 저장되었습니다.)")
         

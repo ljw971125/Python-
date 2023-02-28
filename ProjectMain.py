@@ -6,26 +6,15 @@
 3. 파이썬 3.10.10 64bit (https://www.python.org/ftp/python/3.10.10/python-3.10.10-amd64.exe)
 -> Add python.exe to Path 체크 후 install Now
 '''
+#%%
 from module import moduleinstall
 moduleinstall() # 모듈 통합 설치
 from project import*
 import auto # 1시간마다 20개씩 자동으로 크롤링하는 모듈
 print("\n2조 : 전장현 // 이지운 // 김민수 // 장윤종 // 장기헌\n")
 
-liYES=['y',"yes","Y","YES","Yes","네","예","넵","옙","ㅔ","ㅇ","ㅇㅋ","그래","그래요","그래용","ㅛ"]
-liNO=["n","no","N","NO","No","아니요","x","X","ㄴ","아니","싫어","싫어요","안할래요","안 할래요","ㅜ"]
-
 while(True):
-    print('*'*50)
-    print("\t무신사 쇼핑몰의 데이터 수집 및 분석") 
-    print('*'*50,'\n')
-    print("1) 데이터 크롤링 이후 축적") # bs4
-    print("2) 02/21~23(3)일간 최대 많이 나온 검색어 상위 20개") 
-    print("3) 수집한 검색어의 빈도수 워드 클라우드") 
-    print("4) 3일간 검색어 순위 막대 그래프") 
-    print("5) 상품 검색 후 브랜드 워드클라우드") #셀레니움
-    print("6) 상품 검색 후 브랜드 원 그래프") 
-    print("0) 종료\n")
+    menu()
 
     createImsiFolder() # 임시폴더 자동생성
     createImgFolder() # 저장할 이미지 폴더 자동생성
@@ -35,117 +24,54 @@ while(True):
         in_num=int(input("보고싶은 메뉴의 번호를 입력하세요.(종료:0)\n"))
         if(in_num==1):
             auto.autoSaveHour()   # 1시간 마다 데이터 자동축적
-
+            print()
         # 3일간 최대 많이 나온 검색어 상위 20
         elif(in_num==2):
             print('\n'+'*'*50)
             print("  02/21~23(3)일간 최대 많이 나온 검색어 상위 20")
             print('*'*50,'\n')
             searchTop(fileToCounter())  # 빈도수 상위 20개의 검색어
-
+            print()
         elif(in_num==3): # 검색어-빈도수 워드클라우드
             print('\n'+'*'*50)
             print("\t수집한 검색어의 빈도수 워드 클라우드")
-            print('*'*50,'\n')
+            print('*'*50+'\n')
             mkWordCloud(fileToCounter()) # 파일에서 읽은 데이터 값 워드클라우드 생성
+            answerStaticShow(in_num)
+            print()
 
-            s=input("이미지를 저장하시겠습니까? (y/n) ")
-            if(s in liYES):
-                print("고정된 값이므로 저장된 이름은 search_frequncy_wc.jpg로 고정입니다.")
-                saveImg(in_num,'') # saveImg폴더안에 이미지 저장
-                deleteImg(in_num) # imsiTemp폴더에 생성된 이미지 삭제
-                print() # 줄 띄우기
-            elif(s in liNO):
-                print("저장하지 않습니다.")
-                deleteImg(in_num) # imsiTemp폴더에 생성된 이미지 삭제
-                print()
-
-            else:
-                print("잘못 입력하셨습니다.(저장하지 않습니다.)")
-                deleteImg(in_num) # imsiTemp폴더에 생성된 이미지 삭제
-                print()
-
-
-        elif(in_num==4): # 검색어-빈도수 막대그래프
+        elif(in_num==4): # 검색어-빈도수 
             print('\n'+'*'*50)
             print("\t3일간 검색어 순위 막대 그래프")
-            print('*'*50,'\n')
+            print('*'*50)
             showBar(fileToCounter()) # 막대그래프 그리기
-            s=input("이미지를 저장하시겠습니까? (y/n) ")
-            if(s in liYES):
-                print("\n고정된 값이므로 저장된 이름은 search_frequncy_stick.jpg로 고정입니다.\n")
-                saveImg(in_num,'') # saveImg폴더안에 이미지 저장
-                deleteImg(in_num) # imsiTemp폴더에 생성된 이미지 삭제
-                print()
-            elif(s in liNO):
-                print("저장하지 않습니다.")
-                deleteImg(in_num) # imsiTemp폴더에 생성된 이미지 삭제
-                print()
-
-            else:
-                print("잘못 입력하셨습니다.(저장하지 않습니다.)")
-                deleteImg(in_num) # imsiTemp폴더에 생성된 이미지 삭제
-                print()
+            answerStaticShow(in_num)
+            print()
         
         # 상품 검색 후 브랜드 워드클라우드
         elif(in_num==5):
             print('\n'+'*'*50)
-            print("\t품 검색 후 브랜드 워드클라우드")
-            print('*'*50,'\n')
+            print("\t상품 검색 후 브랜드 워드클라우드")
+            print('*'*50)
             mkWordCloud(searchBrand()) # 워드클라우드 생성
+            answerDynamicShow(in_num)
             print()
-            s=input("이미지를 저장하시겠습니까? (y/n) ")
-            if(s in liYES):
-                while(True):
-                    image_name1=input("저장하고 싶은 이미지파일명 : ") 
-                    answer1=saveImg(in_num,image_name1) # answer변수에 리턴값 받아오기
-                    if(answer1=='q'): # 받아온 answer변수의 값이 q일때 image_name값 다시 입력
-                        continue  # 다시 반복
-                    else: # 받아온 answer변수의 값이 no일때 이미지 저장
-                        break # 반복 종료
-                deleteImg(in_num) # imsiTemp폴더에 생성된 이미지 삭제
-                print()
-            elif(s in liNO):
-                print("저장하지 않습니다.")
-                deleteImg(in_num) # imsiTemp폴더에 생성된 이미지 삭제
-                print()
-            else:
-                print("잘못 입력하셨습니다.(저장하지 않습니다.)")
-                deleteImg(in_num) # imsiTemp폴더에 생성된 이미지 삭제
-                print()
-
         # 상품 검색 후 브랜드 원 그래프
         elif(in_num==6):
             print('\n'+'*'*50)
-            print("\t상품 검색 후 브랜드 원 그래프")
-            print('*'*50,'\n')
-            brandCircle()
-            s=input("이미지를 저장하시겠습니까? (y/n) ")
-            if(s in liYES):
-                while(True):
-                    image_name=input("저장하고 싶은 이미지파일명 : ")
-                    answer=saveImg(in_num,image_name) # answer변수에 리턴값 받아오기
-                    if(answer=='quit'): # 받아온 answer변수의 값이 quit일때 image_name값 다시 입력
-                        continue # 다시 반복
-                    else: # 받아온 answer변수의 값이 q이 아닐때 이미지 저장
-                        break    # 반복 종료           
-                deleteImg(in_num) # imsiTemp폴더에 생성된 이미지 삭제
-                print()
-            elif(s in liNO):
-                print("저장하지 않습니다.")
-                deleteImg(in_num) # imsiTemp폴더에 생성된 이미지 삭제
-                print()
+            print("\t수집한 검색어의 빈도수 원 그래프")
+            print('*'*50)
 
-            else:
-                print("잘못 입력하셨습니다.(저장하지 않습니다.)")
-                deleteImg(in_num) # imsiTemp폴더에 생성된 이미지 삭제
-                print()               
+            brandCircle()
+            answerDynamicShow(in_num)
+            print()
+
         # 프로그램 종료
         elif(in_num==0):
             deleteimsiFolder()              # imsiTemp폴더(내용있든 없든)삭제              
             print('\n'+'*'*50)
-            print("\t    이용해 주셔서 감사합니다.") 
-            print('*'*50,'\n')
+            print("\t   이용해 주셔서 감사합니다.")
+            print('*'*50)
             break
         
         elif(in_num < 0 or in_num > 6):
@@ -195,3 +121,6 @@ while(True):
 
     except Exception:
         print("잘못된 입력입니다.")
+
+
+# %%
