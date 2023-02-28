@@ -35,7 +35,7 @@ while(True):
     try:
         in_num=int(input("보고싶은 메뉴의 번호를 입력하세요.(종료:0)\n"))
         if(in_num==1):
-            auto.auto_save_hour()   # 1시간 마다 데이터 자동축적
+            auto.autoSaveHour()   # 1시간 마다 데이터 자동축적
 
         # 3일간 최대 많이 나온 검색어 상위 20
         elif(in_num==2):
