@@ -7,12 +7,12 @@ def moduleinstall():
         import wordcloud
         import numpy
         import schedule
-        import webdriver-manager
+        import webdriver_manager
     except:
         print("통합 모듈 설치를 시작합니다.")
         import sys
         import subprocess #모듈을 한번에 설치하기 위한 모듈
-        subprocess.check_call([sys.executable,'-m','pip','install','-q','--upgrade','webdriver-manager`'])
+        subprocess.check_call([sys.executable,'-m','pip','install','-q','--upgrade','webdriver_manager'])
         subprocess.check_call([sys.executable,'-m','pip','install','-q','--upgrade','requests'])
         subprocess.check_call([sys.executable,'-m','pip','install','-q','--upgrade','bs4'])
         subprocess.check_call([sys.executable,'-m','pip','install','-q','--upgrade','selenium'])
