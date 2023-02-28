@@ -10,7 +10,7 @@ from module import moduleinstall
 moduleinstall() # 모듈 통합 설치
 from project import*
 import auto # 1시간마다 20개씩 자동으로 크롤링하는 모듈
-print("\n2조 : 전장현 // 이지운 // 김민수 // 장윤종 // 장기헌")
+print("\n2조 : 전장현 // 이지운 // 김민수 // 장윤종 // 장기헌\n")
 
 liYES=['y',"yes","Y","YES","Yes","네","예","넵","옙","ㅔ","ㅇ","ㅇㅋ","그래","그래요","그래용","ㅛ"]
 liNO=["n","no","N","NO","No","아니요","x","X","ㄴ","아니","싫어","싫어요","안할래요","안 할래요","ㅜ"]
@@ -38,11 +38,15 @@ while(True):
 
         # 3일간 최대 많이 나온 검색어 상위 20
         elif(in_num==2):
-            print("\n2) 02/21~23(3)일간 최대 많이 나온 검색어 상위 20\n")
+            print('\n'+'*'*50)
+            print("  02/21~23(3)일간 최대 많이 나온 검색어 상위 20")
+            print('*'*50,'\n')
             searchTop(fileToCounter())  # 빈도수 상위 20개의 검색어
 
         elif(in_num==3): # 검색어-빈도수 워드클라우드
-            print("\n3) 수집한 검색어의 빈도수 워드 클라우드\n")
+            print('\n'+'*'*50)
+            print("\t수집한 검색어의 빈도수 워드 클라우드")
+            print('*'*50,'\n')
             mkWordCloud(fileToCounter()) # 파일에서 읽은 데이터 값 워드클라우드 생성
 
             s=input("이미지를 저장하시겠습니까? (y/n) ")
@@ -63,7 +67,9 @@ while(True):
 
 
         elif(in_num==4): # 검색어-빈도수 막대그래프
-            print("\n4) 3일간 검색어 순위 막대 그래프\n")
+            print('\n'+'*'*50)
+            print("\t3일간 검색어 순위 막대 그래프")
+            print('*'*50,'\n')
             showBar(fileToCounter()) # 막대그래프 그리기
             s=input("이미지를 저장하시겠습니까? (y/n) ")
             if(s in liYES):
@@ -83,7 +89,9 @@ while(True):
         
         # 상품 검색 후 브랜드 워드클라우드
         elif(in_num==5):
-            print("\n5) 품 검색 후 브랜드 워드클라우드\n")
+            print('\n'+'*'*50)
+            print("\t품 검색 후 브랜드 워드클라우드")
+            print('*'*50,'\n')
             mkWordCloud(searchBrand()) # 워드클라우드 생성
             print()
             s=input("이미지를 저장하시겠습니까? (y/n) ")
@@ -108,7 +116,9 @@ while(True):
 
         # 상품 검색 후 브랜드 원 그래프
         elif(in_num==6):
-            print("\n6) 상품 검색 후 브랜드 원 그래프\n")
+            print('\n'+'*'*50)
+            print("\t상품 검색 후 브랜드 원 그래프")
+            print('*'*50,'\n')
             brandCircle()
             s=input("이미지를 저장하시겠습니까? (y/n) ")
             if(s in liYES):
@@ -133,7 +143,9 @@ while(True):
         # 프로그램 종료
         elif(in_num==0):
             deleteimsiFolder()              # imsiTemp폴더(내용있든 없든)삭제              
-            print('프로그램을 종료합니다.')
+            print('\n'+'*'*50)
+            print("\t    이용해 주셔서 감사합니다.") 
+            print('*'*50,'\n')
             break
         
         elif(in_num < 0 or in_num > 6):
