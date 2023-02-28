@@ -6,7 +6,6 @@
 3. 파이썬 3.10.10 64bit (https://www.python.org/ftp/python/3.10.10/python-3.10.10-amd64.exe)
 -> Add python.exe to Path 체크 후 install Now
 '''
-#%%
 from module import moduleinstall
 moduleinstall() # 모듈 통합 설치
 from project import*
@@ -21,7 +20,7 @@ while(True):
     print("\t무신사 쇼핑몰의 데이터 수집 및 분석") 
     print('*'*50,'\n')
     print("1) 데이터 크롤링 이후 축적") # bs4
-    print("2) 02/21~23(3)일간 최대 많이 나온 검색어 상위 20") 
+    print("2) 02/21~23(3)일간 최대 많이 나온 검색어 상위 20개") 
     print("3) 수집한 검색어의 빈도수 워드 클라우드") 
     print("4) 3일간 검색어 순위 막대 그래프") 
     print("5) 상품 검색 후 브랜드 워드클라우드") #셀레니움
@@ -68,7 +67,7 @@ while(True):
             showBar(fileToCounter()) # 막대그래프 그리기
             s=input("이미지를 저장하시겠습니까? (y/n) ")
             if(s in liYES):
-                print("고정된 값이므로 저장된 이름은 search_frequncy_stick.jpg로 고정입니다.")
+                print("\n고정된 값이므로 저장된 이름은 search_frequncy_stick.jpg로 고정입니다.\n")
                 saveImg(in_num,'') # saveImg폴더안에 이미지 저장
                 deleteImg(in_num) # imsiTemp폴더에 생성된 이미지 삭제
                 print()
@@ -184,6 +183,3 @@ while(True):
 
     except Exception:
         print("잘못된 입력입니다.")
-
-
-# %%
