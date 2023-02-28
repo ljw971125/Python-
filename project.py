@@ -123,7 +123,7 @@ def saveImg(in_num,image_name):     # 이미지 저장
             exist='q'
             return exist                
         else:
-            image = Image.open("imsiTemp\\circle.jpg")# imsiTemp폴더 안의 이미지를 열어서 image변수에 저장
+            image = Image.open("imsiTemp\\wordcloud.jpg")# imsiTemp폴더 안의 이미지를 열어서 image변수에 저장
             image.save(("saveImg\\"+image_name+".jpg"),"JPEG") # image변수를 현재경로의 매개변수 값으로 저장
             noexist='n'
             return noexist      
