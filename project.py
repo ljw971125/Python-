@@ -209,13 +209,14 @@ def fileToCounter():
 
 # 3일간 최대 많이 나온 검색어 상위 20
 def searchTop(fileToCounter):
+    
     str_list=list(fileToCounter.keys()) # 읽어온 카운터의 키값(상품명)을 리스트로 저장
     int_list=list(fileToCounter.values()) # 읽어온 카운터의 value값(빈도수)를 리스트로 저장
 
     list_to_dict = { x:y for x,y in zip(str_list,int_list) } # 두 개의 리스트를 딕셔너리화 (중복제거 x)
     sorted_by_value = sorted(list_to_dict.items(), key=operator.itemgetter(1), reverse=True) # value(빈도수)값으로 내림차순 정렬
     for i in range(0,20,2): # 한 행당 0~1 / 2~3 / 4~5 .../ 18~19 
-        print("%10s \t %10s"%(sorted_by_value[i][0],sorted_by_value[i+1][0])) # 출력
+        print("%10s \t %10s"%(sorted_by_value[i][0],sorted_by_value[i+1][0]),"\n") # 출력
 
 '''
 함수명: showBar
@@ -229,7 +230,6 @@ def searchTop(fileToCounter):
 ''' 
 # 저장된 파일을 바탕으로 막대그래프
 def showBar(fileToCounter): #카운터 딕셔너리를 매개변수로 받습니다.
-
     str_list=list(fileToCounter.keys()) # labels라는 이름의 리스트에 카운터딕셔너리의 keys값을 넣습니다.
     int_list=list(fileToCounter.values()) # values라는 이름의 리스트에 카운터딕셔너리의 values값을 넣습니다.
     fig=plt.figure(figsize=(20,10)) # 이미지 크기
@@ -243,6 +243,7 @@ def showBar(fileToCounter): #카운터 딕셔너리를 매개변수로 받습니
         print("%s : %d"%(str_list[i],int_list[i]))
     image = Image.open("imsiTemp\\stick.jpg") # 이미지를 불러옵니다.
     image.show() # 불러온 이미지를 보여줍니다.
+    print()
 
 '''
 함수명: searchBrand
@@ -276,7 +277,7 @@ def searchBrand():
         sorted_list.append(sorted_by_value[i][0])
 
     while(True):
-        input_product = input('상품명을 입력해주세요{메뉴화면 돌아가기:y}.')
+        input_product = input('상품명을 입력해주세요.(메뉴화면 돌아가기:y)')
         if  input_product in sorted_list:
             driver=webdriver.Chrome("C:\chromedriver\chromedriver.exe") #크롬드라이버
             driver.get("https://www.musinsa.com/app/") # 무신사
@@ -378,6 +379,7 @@ def brandCircle():
             print("%s : %d"%(high_keys[i],high_values[i]))
         image = Image.open("imsiTemp\\circle.jpg")     #image 변수에 circle.png파일 대입
         image.show()                                   #image 변수에 저장된 사진 출력
+        print()
 
 '''
 함수명: mkWordCloud
@@ -394,7 +396,6 @@ def brandCircle():
 
 # 3일간 검색어 순위 워드 클라우드, 상품 검색 후 브랜드 워드클라우드
 def mkWordCloud(func_counter):
-
     if (func_counter==1):
         print('메뉴화면 이동')
     else:
@@ -427,3 +428,4 @@ def mkWordCloud(func_counter):
             print("%s : %d"%(fc_keys[i],fc_values[i]))
         wordcloud_img=Image.open('imsiTemp\\wordcloud.jpg')
         wordcloud_img.show()
+        print()

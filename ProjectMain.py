@@ -11,15 +11,15 @@ from module import moduleinstall
 moduleinstall() # 모듈 통합 설치
 from project import*
 import auto # 1시간마다 20개씩 자동으로 크롤링하는 모듈
-print("\n\t\t\t2조 : 전장현 // 이지운 // 김민수 // 장윤종 // 장기헌")
+print("\n2조 : 전장현 // 이지운 // 김민수 // 장윤종 // 장기헌")
 
 liYES=['y',"yes","Y","YES","Yes","네","예","넵","옙","ㅔ","ㅇ","ㅇㅋ","그래","그래요","그래용","ㅛ"]
 liNO=["n","no","N","NO","No","아니요","x","X","ㄴ","아니","싫어","싫어요","안할래요","안 할래요","ㅜ"]
 
 while(True):
-    print('*'*100)
-    print("\t\t\t\t무신사 쇼핑몰의 데이터 수집 및 분석") 
-    print('*'*100,'\n')
+    print('*'*50)
+    print("\t무신사 쇼핑몰의 데이터 수집 및 분석") 
+    print('*'*50,'\n')
     print("1) 데이터 크롤링 이후 축적") # bs4
     print("2) 02/21~23(3)일간 최대 많이 나온 검색어 상위 20") 
     print("3) 수집한 검색어의 빈도수 워드 클라우드") 
@@ -39,12 +39,14 @@ while(True):
 
         # 3일간 최대 많이 나온 검색어 상위 20
         elif(in_num==2):
+            print("\n2) 02/21~23(3)일간 최대 많이 나온 검색어 상위 20\n")
             searchTop(fileToCounter())  # 빈도수 상위 20개의 검색어
 
         elif(in_num==3): # 검색어-빈도수 워드클라우드
+            print("\n3) 수집한 검색어의 빈도수 워드 클라우드\n")
             mkWordCloud(fileToCounter()) # 파일에서 읽은 데이터 값 워드클라우드 생성
 
-            s=input("이미지를 저장하시겠습니까? y/n ")
+            s=input("이미지를 저장하시겠습니까? (y/n) ")
             if(s in liYES):
                 print("고정된 값이므로 저장된 이름은 search_frequncy_wc.jpg로 고정입니다.")
                 saveImg(in_num,'') # saveImg폴더안에 이미지 저장
@@ -62,8 +64,9 @@ while(True):
 
 
         elif(in_num==4): # 검색어-빈도수 막대그래프
+            print("\n4) 3일간 검색어 순위 막대 그래프\n")
             showBar(fileToCounter()) # 막대그래프 그리기
-            s=input("이미지를 저장하시겠습니까? y/n ")
+            s=input("이미지를 저장하시겠습니까? (y/n) ")
             if(s in liYES):
                 print("고정된 값이므로 저장된 이름은 search_frequncy_stick.jpg로 고정입니다.")
                 saveImg(in_num,'') # saveImg폴더안에 이미지 저장
@@ -81,9 +84,10 @@ while(True):
         
         # 상품 검색 후 브랜드 워드클라우드
         elif(in_num==5):
+            print("\n5) 품 검색 후 브랜드 워드클라우드\n")
             mkWordCloud(searchBrand()) # 워드클라우드 생성
             print()
-            s=input("이미지를 저장하시겠습니까? y/n ")
+            s=input("이미지를 저장하시겠습니까? (y/n) ")
             if(s in liYES):
                 while(True):
                     image_name1=input("저장하고 싶은 이미지파일명 : ") 
@@ -105,8 +109,9 @@ while(True):
 
         # 상품 검색 후 브랜드 원 그래프
         elif(in_num==6):
+            print("\n6) 상품 검색 후 브랜드 원 그래프\n")
             brandCircle()
-            s=input("이미지를 저장하시겠습니까? y/n ")
+            s=input("이미지를 저장하시겠습니까? (y/n) ")
             if(s in liYES):
                 while(True):
                     image_name=input("저장하고 싶은 이미지파일명 : ")
