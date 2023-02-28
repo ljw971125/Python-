@@ -6,7 +6,6 @@
 3. 파이썬 3.10.10 64bit (https://www.python.org/ftp/python/3.10.10/python-3.10.10-amd64.exe)
 -> Add python.exe to Path 체크 후 install Now
 '''
-#%%
 from module import moduleinstall
 moduleinstall() # 모듈 통합 설치
 from project import*
@@ -121,6 +120,3 @@ while(True):
 
     except Exception:
         print("잘못된 입력입니다.")
-
-
-# %%

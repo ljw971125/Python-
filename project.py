@@ -537,6 +537,7 @@ def mkWordCloud(func_counter):
             fc_keys[i] = fc_keys[i].replace(' ', '')
 
         wordcloud_dict = dict(zip(fc_keys,fc_values))
+        sorted_by_value = sorted(wordcloud_dict.items(), key = operator.itemgetter(1),reverse=True) #value(빈도수) 갑승로 내림차순 정렬
         t_mask = np.array(Image.open('image\\t5_2.jpg'))
 
         fontpath='C:\\Windows\\Fonts\\NGULIM.TTF'
@@ -548,7 +549,7 @@ def mkWordCloud(func_counter):
             colormap ="Greens",
             font_path = fontpath
 
-        ).generate(str(wordcloud_dict))
+        ).generate(str(sorted_by_value))
         plt.figure(figsize=(8,8))
         plt.imshow(wc, interpolation='bilinear')
         plt.axis('off')
