@@ -1,5 +1,4 @@
 def moduleinstall():
-    print("통합 모듈 설치를 시작합니다.")
     try:
         import requests # 특정 웹사이트에 HTTP 요청을 보내 HTML 문서를 받아올 수 있는 라이브러리
         import bs4
@@ -9,6 +8,7 @@ def moduleinstall():
         import numpy
         import schedule
     except:
+        print("통합 모듈 설치를 시작합니다.")
         import sys
         import subprocess
         subprocess.check_call([sys.executable,'-m','pip','install','-q','--upgrade','requests'])
