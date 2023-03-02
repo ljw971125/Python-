@@ -37,43 +37,6 @@ in_num      메뉴
 liYES=['y',"yes","Y","YES","Yes","네","예","넵","옙","ㅔ","ㅇ","ㅇㅋ","그래","그래요","그래용","ㅛ"]
 liNO=["n","no","N","NO","No","아니요","x","X","ㄴ","아니","싫어","싫어요","안할래요","안 할래요","ㅜ"]
 
-
-'''
-함수명: menu
-            변수명    자료형    설명
-매개변수 : 없음
-반환값 : 없음
-기능설명: 메뉴 UI
-'''  
-def menu():
-    print('*'*50)
-    print("\t무신사 쇼핑몰의 데이터 수집 및 분석") 
-    print('*'*50,'\n')
-    print("1) 데이터 크롤링 이후 축적") # bs4
-    print("2) 02/21~23(3)일간 최대 많이 나온 검색어 상위 20") 
-    print("3) 수집한 검색어의 빈도수 워드 클라우드") 
-    print("4) 3일간 검색어 순위 막대 그래프") 
-    print("5) 상품 검색 후 브랜드 워드클라우드") #셀레니움
-    print("6) 상품 검색 후 브랜드 원 그래프") 
-    print("0) 종료\n")
-
-
-'''
- 함수명: ToKorean
-            변수명    자료형    설명
-매개변수 : 없음
-반환값 : 없음
-기능설명: 한글 깨짐 해결
-'''    
-def toKorean(): # 한글 함수
-    if platform.system() == 'Darwin': # 맥
-        plt.rc('font', family='AppleGothic') 
-    elif platform.system() == 'Windows': # 윈도우
-        plt.rc('font', family='Malgun Gothic') 
-    elif platform.system() == 'Linux': # 리눅스 (구글 콜랩)
-        plt.rc('font', family='Malgun Gothic') 
-    plt.rcParams['axes.unicode_minus'] = False # 한글 폰트 사용시 마이너스 폰트 깨짐 해결
-
 '''
  함수명: createImsiFolder
             변수명    자료형    설명
@@ -103,47 +66,135 @@ def createImgFolder(): # 폴더 생성
         print ('Error: Creating directory. ' +  'saveImg') # os에러일때 화면에 이 문자열을 출력합니다.
 
 '''
-함수명: staticImgExist
-            변수명          자료형      설명
-매개변수    imsiImg_name      str       받아올 임시폴더의 이미지 이름
-매개변수    image_name        str       받아온 이미지 이름
-변수        image            imageopen  파일 열기
-            
+ 함수명: ToKorean
+            변수명    자료형    설명
+매개변수 : 없음
 반환값 : 없음
-기능설명   :   정적인 이미지(메뉴 3,4번) 이미지 저장
- '''
-def staticImgExist(imsiImg_name,image_name):
-    if(os.path.isfile(('saveImg\\'+image_name))):
-        print("같은 이름의 이미지가 이미 존재합니다.")
-    else:
-        image = Image.open("imsiTemp\\"+imsiImg_name) # imsiTemp폴더 안의 이미지를 열어서 image변수에 저장
-        image.save(("saveImg\\"+image_name),"JPEG")
-        
-'''
-함수명: dynamicImgExist
-            변수명          자료형      설명
-매개변수    imsiImg_name    str       받아올 임시폴더의 이미지 이름
-매개변수    image_name      str       받아온 이미지 이름
-변수        image           imageopen  파일 열기
-            
-반환값 :    rename          str         파일이 존재할 경우 반복을 위해 반환시켜줄 문자열
-반환값 :    no_renmae       str         파일이 존재하지 않을 경우 반복문을 탈출하기 위한 반환값
+기능설명: 한글 깨짐 해결
+'''    
+def toKorean(): # 한글 함수
+    if platform.system() == 'Darwin': # 맥
+        plt.rc('font', family='AppleGothic') 
+    elif platform.system() == 'Windows': # 윈도우
+        plt.rc('font', family='Malgun Gothic') 
+    elif platform.system() == 'Linux': # 리눅스 (구글 콜랩)
+        plt.rc('font', family='Malgun Gothic') 
+    plt.rcParams['axes.unicode_minus'] = False # 한글 폰트 사용시 마이너스 폰트 깨짐 해결
 
-기능설명   :   동적인 이미지(메뉴 5,6번) 이미지 저장
- '''
-def dynamicImgExist(imsiImg_name,image_name):
-    if(os.path.isfile("saveImg\\"+image_name+".jpg")):
-        print("같은 이름의 이미지가 이미 존재합니다.")
-        rename='rename'
-        return rename
-    else:
-        image = Image.open(("imsiTemp\\"+imsiImg_name))# imsiTemp폴더 안의 이미지를 열어서 image변수에 저장
-        image.save(("saveImg\\"+image_name+".jpg"),"JPEG") # image변수를 현재경로의 매개변수 값으로 저장
-        no_rename='no'
-        return no_rename
-        
 '''
-함수명: answerStaticShow
+함수명: menu
+            변수명    자료형    설명
+매개변수 : 없음
+반환값 : 없음
+기능설명: 메뉴 UI
+'''  
+def menu():
+    print('*'*50)
+    print("\t무신사 쇼핑몰의 데이터 수집 및 분석") 
+    print('*'*50,'\n')
+    print("1) 데이터 크롤링 이후 축적") # bs4
+    print("2) 02/21~23(3)일간 최대 많이 나온 검색어 상위 20") 
+    print("3) 수집한 검색어의 빈도수 워드 클라우드") 
+    print("4) 3일간 검색어 순위 막대 그래프") 
+    print("5) 상품 검색 후 브랜드 워드클라우드") #셀레니움
+    print("6) 상품 검색 후 브랜드 원 그래프")
+    print("0) 종료\n")
+
+
+'''
+함수명: star
+            변수명    자료형    설명
+매개변수 : 없음
+반환값 : 없음
+기능설명: 별 50개 찍어주는 함수
+'''  
+def star():
+    print('\n'+'*'*50)
+
+
+'''
+함수명: subMenuIntro
+            변수명    자료형    설명
+매개변수 :  in_num    int      메뉴번호
+반환값 : 없음
+기능설명: 메뉴안에서 메뉴번호를 눌렀을 때 그 메뉴에 대한 설명
+'''  
+def subMenuIntro(in_num):
+    if(in_num==2):
+        star()
+        print(" 02/21~23(3)일간 최대 많이 나온 검색어 상위 20")
+        star()
+    elif(in_num==3):
+        star()
+        print("\t수집한 검색어의 빈도수 워드 클라우드")
+        star()
+    elif(in_num==4):
+        star()
+        print("\t3일간 검색어 순위 막대 그래프")
+        star()
+    elif(in_num==5):
+        star()
+        print("\t상품 검색 후 브랜드 워드클라우드")
+        star()
+    elif(in_num==6):
+        star()
+        print("\t수집한 검색어의 빈도수 원 그래프")
+        star()
+    elif(in_num==0):
+        star()
+        print("\t   이용해 주셔서 감사합니다.")
+        star()
+
+
+'''
+함수명: doMenu
+            변수명      자료형              설명
+매개변수 :  in_num      int                 메뉴번호
+매개변수 :  func_name   str                 적용할 함수 이름
+변수    :   counter     counter / int       함수실행시 반환되는 반환값을 저장할 변수(카운터 딕셔너리 / 1 을 반환받습니다.)
+
+            in_num      func_name           설명
+            2           searchTop           빈도수 상위 20개의 검색어
+            3           mkWordcloud         카운터 값을 받아서 워드클라우드 생성
+            4           showBar             카운터 값을 받아서 막대그래프 생성
+            5           mkWordcloud         카운터 값을 받아서 워드클라우드 생성
+            6           brandCircle         카운터 값을 받아서 원 그래프 생성
+            0           없음('')            임시 폴더 삭제                
+반환값 : 없음
+기능설명: 메뉴 번호와 함수이름을 입력받아서 함수들을 실행
+'''  
+def doMenu(in_num,func_name):
+    if(in_num==2):
+        subMenuIntro(in_num)
+        func_name(fileToCounter())  # 빈도수 상위 20개의 검색어
+        print()
+    elif(in_num==3 or in_num==4):  # 정적인(변하지 않는) 메뉴
+        subMenuIntro(in_num)
+        func_name(fileToCounter()) 
+        answerStaticSave(in_num)
+        print()
+    elif(in_num==5 or in_num==6): # 동적인(계속 변하는) 메뉴
+        subMenuIntro(in_num)
+        while(True):
+            input_product = input('상품명을 입력해주세요{메뉴화면 돌아가기:y}.\n')
+            if(input_product in liYES):
+                break    
+            else:
+                counter=searchBrand(input_product)
+                if(counter==1):
+                    print("빈도수 상위 20개의 검색어에 포함되지 않았습니다.\n")
+                    continue
+                else:
+                    func_name(counter)
+                    answerDynamicSave(in_num)
+                    break
+        print()
+    else:
+        deleteimsiFolder()              # imsiTemp폴더(내용있든 없든)삭제              
+        subMenuIntro(in_num)
+
+'''
+함수명: answerStaticSave
             변수명      자료형      설명
 매개변수    in_num      int         메뉴 번호
 변수        question    input(str)  저장할지 물어보는 문자열
@@ -155,7 +206,7 @@ def dynamicImgExist(imsiImg_name,image_name):
 반환값 : 없음
 기능설명   :  정적 이미지 저장 질문 후 저장
  '''
-def answerStaticShow(in_num):
+def answerStaticSave(in_num):
     question=input("\n이미지를 저장하시겠습니까? (Y/N)\n")
     if(question in liYES):
         print("정적이라 정해진 이름으로 저장합니다.")
@@ -163,16 +214,16 @@ def answerStaticShow(in_num):
         deleteImg(in_num) # imsiTemp폴더에 생성된 이미지 삭제
         print()
     elif(question in liNO):
-        print("저장하지 않습니다.")
+        print("저장하지 않습니다.\n")
         deleteImg(in_num) # imsiTemp폴더에 생성된 이미지 삭제
         print()
     else:
-        print("잘못 입력하셨습니다.(저장하지 않습니다.)")
+        print("잘못 입력하셨습니다.(저장하지 않습니다.\n)")
         deleteImg(in_num) # imsiTemp폴더에 생성된 이미지 삭제
         print()
 
 '''
-함수명: dynamicStaticShow
+함수명: answerDynamicSave
             변수명      자료형      설명
 매개변수    in_num      int         메뉴 번호
 변수        question    input(str)  저장할지 물어보는 문자열
@@ -181,9 +232,9 @@ def answerStaticShow(in_num):
 사용함수    deleteImg   function    imsiTemp안의 이미지 삭제 함수
               
 반환값 : 없음
-기능설명   :  동적 이미지 저장 질문 후 저장
+기능설명   :  동적 이미지 저장 질문 후 임시포 실행
  '''
-def answerDynamicShow(in_num):
+def answerDynamicSave(in_num):   
     question=input("\n이미지를 저장하시겠습니까? (Y/N)\n")
     if(question in liYES):
         while(True):
@@ -196,14 +247,13 @@ def answerDynamicShow(in_num):
         deleteImg(in_num) # imsiTemp폴더에 생성된 이미지 삭제
         print()
     elif(question in liNO):
-        print("저장하지 않습니다.")
+        print("저장하지 않습니다.\n")
         deleteImg(in_num) # imsiTemp폴더에 생성된 이미지 삭제
         print()
     else:
-        print("잘못 입력하셨습니다.(저장하지 않습니다.)")
+        print("잘못 입력하셨습니다.(저장하지 않습니다.)\n")
         deleteImg(in_num) # imsiTemp폴더에 생성된 이미지 삭제
         print()
-
 
 '''
 함수명: saveImg
@@ -222,25 +272,64 @@ def saveImg(in_num,image_name):     # 이미지 저장
     if(in_num==4):
         imsiImg_name='막대.jpg'
         image_name='막대.jpg'
-        staticImgExist(imsiImg_name,image_name)
+        staticImgSave(imsiImg_name,image_name)
 
     elif(in_num==3):
         imsiImg_name='wordcloud.jpg'
         image_name='SF_wordcloud.jpg'
-        staticImgExist(imsiImg_name,image_name)
+        staticImgSave(imsiImg_name,image_name)
 
     elif(in_num==6): # 원그래프
         imsiImg_name='circle.jpg'
-        answer=dynamicImgExist(imsiImg_name,image_name)
+        answer=dynamicImgSave(imsiImg_name,image_name)
         return answer
     
     elif(in_num==5) : # 워드클라우드
         imsiImg_name='wordcloud.jpg'
-        answer=dynamicImgExist(imsiImg_name,image_name)
+        answer=dynamicImgSave(imsiImg_name,image_name)
         return answer
     else:
         print("메인을 수정하세요 매개변수가 잘못되었습니다.\n")
 
+'''
+함수명: staticImgSave
+            변수명          자료형      설명
+매개변수    imsiImg_name      str       받아올 임시폴더의 이미지 이름
+매개변수    image_name        str       받아온 이미지 이름
+변수        image            imageopen  파일 열기
+            
+반환값 : 없음
+기능설명   :   정적인 이미지(메뉴 3,4번) 이미지 저장
+ '''
+def staticImgSave(imsiImg_name,image_name):
+    if(os.path.isfile(('saveImg\\'+image_name))):
+        print("같은 이름의 이미지가 이미 존재합니다.")
+    else:
+        image = Image.open("imsiTemp\\"+imsiImg_name) # imsiTemp폴더 안의 이미지를 열어서 image변수에 저장
+        image.save(("saveImg\\"+image_name),"JPEG")
+        
+'''
+함수명: dynamicImgSave
+            변수명          자료형      설명
+매개변수    imsiImg_name    str       받아올 임시폴더의 이미지 이름
+매개변수    image_name      str       받아온 이미지 이름
+변수        image           imageopen  파일 열기
+            
+반환값 :    rename          str         파일이 존재할 경우 반복을 위해 반환시켜줄 문자열
+반환값 :    no_renmae       str         파일이 존재하지 않을 경우 반복문을 탈출하기 위한 반환값
+
+기능설명   :   동적인 이미지(메뉴 5,6번) 이미지 저장
+ '''
+def dynamicImgSave(imsiImg_name,image_name):
+    if(os.path.isfile("saveImg\\"+image_name+".jpg")):
+        print("같은 이름의 이미지가 이미 존재합니다.")
+        rename='rename'
+        return rename
+    else:
+        image = Image.open(("imsiTemp\\"+imsiImg_name))# imsiTemp폴더 안의 이미지를 열어서 image변수에 저장
+        image.save(("saveImg\\"+image_name+".jpg"),"JPEG") # image변수를 현재경로의 매개변수 값으로 저장
+        no_rename='no'
+        return no_rename
 
 '''
 함수명: deleteImg
@@ -378,7 +467,7 @@ def showBar(fileToCounter): #카운터 딕셔너리를 매개변수로 받습니
 '''
 함수명: searchBrand
             변수명              자료형      설명
-매개변수 :  없음
+매개변수 :  input_product       str         input으로 입력받아올 문자
 반환값1:    brand_counter       Counter     웹 크롤링해서 가져온 브랜드 리스트를 Counter로 변환 후 반환
 반환값2:    1                   int         입력을 중지할 시 임의의 리턴값 반환
 변수   :    str_list            list        받아온 fileToCounter에서 key값들을 list로 변환
@@ -395,7 +484,7 @@ def showBar(fileToCounter): #카운터 딕셔너리를 매개변수로 받습니
 '''
 # 키워드별 판매순으로 브랜드 카운팅
 # 상품 검색후 브랜드 카운팅
-def searchBrand():
+def searchBrand(input_product):
      # 상품명 입력
     file_to_counter=fileToCounter()
     str_list=list(file_to_counter.keys()) # 읽어온 카운터의 키값(상품명)을 리스트로 저장
@@ -406,46 +495,43 @@ def searchBrand():
     for i in range(0,20):
         sorted_list.append(sorted_by_value[i][0])
 
-    while(True):
-        input_product = input('\n'+'상품명을 입력해주세요{메뉴화면 돌아가기:y}.\n')
-        if  input_product in sorted_list:
-            driver=webdriver.Chrome("C:\chromedriver\chromedriver.exe") #크롬드라이버
-            driver.get("https://www.musinsa.com/app/") # 무신사
+    if  input_product in sorted_list:
+        driver=webdriver.Chrome("C:\chromedriver\chromedriver.exe") #크롬드라이버
+        driver.get("https://www.musinsa.com/app/") # 무신사
 
-            # 크롬 드라이버 동작 부분
-            driver.find_element(By.XPATH,'//*[@id="search_query"]').click()
-            sleep(0.1)
-            driver.find_element(By.XPATH,'//*[@id="search_query"]').send_keys(input_product)
-            sleep(0.1)
-            driver.find_element(By.XPATH,'//*[@id="search_button"]').click()
-            sleep(0.1)
-            driver.find_element(By.XPATH,'/html/body/div[2]/div[3]/section/div[3]/div/section[1]/header/a/h2').click()
-            sleep(0.1)
-            driver.find_element(By.XPATH,'//*[@id="goodsList"]/div[1]/a[7]/span').click()
-            sleep(0.1)
-            driver.find_element(By.XPATH,'//*[@id="layerSorting_sale"]/div/label[5]').click()
-            sleep(0.1)
+        # 크롬 드라이버 동작 부분
+        driver.find_element(By.XPATH,'//*[@id="search_query"]').click()
+        sleep(0.1)
+        driver.find_element(By.XPATH,'//*[@id="search_query"]').send_keys(input_product)
+        sleep(0.1)
+        driver.find_element(By.XPATH,'//*[@id="search_button"]').click()
+        sleep(0.1)
+        driver.find_element(By.XPATH,'/html/body/div[2]/div[3]/section/div[3]/div/section[1]/header/a/h2').click()
+        sleep(0.1)
+        driver.find_element(By.XPATH,'//*[@id="goodsList"]/div[1]/a[7]/span').click()
+        sleep(0.1)
+        driver.find_element(By.XPATH,'//*[@id="layerSorting_sale"]/div/label[5]').click()
+        sleep(0.1)
 
-            URL=driver.current_url
-            data_url=URL.split('page')
+        URL=driver.current_url
+        data_url=URL.split('page')
 
-            brand_li=[] #브랜드 리스트
-            for i in range(1,11): # 첫페이지 부터 10페이지 까지 수집
-                url = Request(data_url[0]+'page='+str(i)+data_url[1][2:], headers={'User-Agent': 'Mozilla/5.0'})
-                html = urlopen(url)
-                soup = BeautifulSoup(html, 'html.parser')
-                brand_name=soup.find_all('p',class_="item_title")
+        brand_li=[] #브랜드 리스트
+        for i in range(1,11): # 첫페이지 부터 10페이지 까지 수집
+            url = Request(data_url[0]+'page='+str(i)+data_url[1][2:], headers={'User-Agent': 'Mozilla/5.0'})
+            html = urlopen(url)
+            soup = BeautifulSoup(html, 'html.parser')
+            brand_name=soup.find_all('p',class_="item_title")
 
-                for j in range(len(brand_name)):
-                    brand_li.append(brand_name[j].text)
+            for j in range(len(brand_name)):
+                brand_li.append(brand_name[j].text)
 
-            brand_counter = Counter(brand_li)
-            return brand_counter
-        elif (input_product=='y'or input_product=='Y'):
-            return 1
-        else:
-            print('다시 입력해주세요.')
-
+        brand_counter = Counter(brand_li)
+        return brand_counter
+    else:
+        return 1
+            
+            
 
 '''
 함수명: brandCircle
@@ -462,12 +548,12 @@ def searchBrand():
 기능설명: imsiTemp폴더 안에 원 그래프 이미지 저장 후 불러오기
 ''' 
 # 브랜드 파일 원그래프
-def brandCircle():
+def brandCircle(brand_counter):
     if(os.path.isfile("imsiTemp\\circle.jpg")):        #만약 circle.png라는 파일이 있으면
         image = Image.open("imsiTemp\\circle.jpg")     #image 변수에 circle.png파일 대입
         image.show()                                   #image 변수에 저장된 사진 출력
     else:                                              #위 조건이 아니라면
-        brand_counter = searchBrand()                 #search_brand 메소드에서 크롤링한 데이터를 brand_counter 변수에 대입
+        brand_counter = brand_counter                 #search_brand 메소드에서 크롤링한 데이터를 brand_counter 변수에 대입
 
         bc_keys=list(brand_counter.keys())             #brand_counter의 key값을 bc_keys 변수에 대입
         bc_value=list(brand_counter.values())          #brand_counter의 value값을 bc_value 변수에 대입
@@ -526,8 +612,9 @@ def brandCircle():
 # 3일간 검색어 순위 워드 클라우드, 상품 검색 후 브랜드 워드클라우드
 def mkWordCloud(func_counter):
 
-    if (func_counter==1):
-        print('메뉴화면 이동')
+    if(os.path.isfile("imsiTemp\\wordcloud.jpg")):        #만약 circle.png라는 파일이 있으면
+        image = Image.open("imsiTemp\\wordcloud.jpg")     #image 변수에 circle.png파일 대입
+        image.show()                                   #image 변수에 저장된 사진 출력
     else:
         fc_keys=list(func_counter.keys())
         fc_values=list(func_counter.values())
@@ -537,7 +624,7 @@ def mkWordCloud(func_counter):
             fc_keys[i] = fc_keys[i].replace(' ', '')
 
         wordcloud_dict = dict(zip(fc_keys,fc_values))
-        sorted_by_value = sorted(wordcloud_dict.items(), key = operator.itemgetter(1),reverse=True) #value(빈도수) 갑승로 내림차순 정렬
+        sorted_by_value = sorted(wordcloud_dict.items(), key=operator.itemgetter(1), reverse=True) # value(빈도수)값으로 내림차순 정렬
         t_mask = np.array(Image.open('image\\t5_2.jpg'))
 
         fontpath='C:\\Windows\\Fonts\\NGULIM.TTF'
@@ -555,7 +642,5 @@ def mkWordCloud(func_counter):
         plt.axis('off')
         plt.savefig('imsiTemp\\wordcloud.jpg')
         plt.close()
-        for i in range(0,len(wordcloud_dict)):
-            print("%s : %d"%(fc_keys[i],fc_values[i]))
         wordcloud_img=Image.open('imsiTemp\\wordcloud.jpg')
         wordcloud_img.show()

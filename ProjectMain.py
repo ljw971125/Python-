@@ -9,6 +9,7 @@
 from module import moduleinstall
 moduleinstall() # 모듈 통합 설치
 from project import*
+45
 import auto # 1시간마다 20개씩 자동으로 크롤링하는 모듈
 print("\n2조 : 전장현 // 이지운 // 김민수 // 장윤종 // 장기헌\n")
 
@@ -24,53 +25,21 @@ while(True):
         if(in_num==1):
             auto.autoSaveHour()   # 1시간 마다 데이터 자동축적
             print()
-        # 3일간 최대 많이 나온 검색어 상위 20
-        elif(in_num==2):
-            print('\n'+'*'*50)
-            print("  02/21~23(3)일간 최대 많이 나온 검색어 상위 20")
-            print('*'*50,'\n')
-            searchTop(fileToCounter())  # 빈도수 상위 20개의 검색어
-            print()
+        elif(in_num==2): # 3일간 최대 많이 나온 검색어 상위 20
+            doMenu(in_num,searchTop)
         elif(in_num==3): # 검색어-빈도수 워드클라우드
-            print('\n'+'*'*50)
-            print("\t수집한 검색어의 빈도수 워드 클라우드")
-            print('*'*50+'\n')
-            mkWordCloud(fileToCounter()) # 파일에서 읽은 데이터 값 워드클라우드 생성
-            answerStaticShow(in_num)
-            print()
-
+            doMenu(in_num,mkWordCloud)
         elif(in_num==4): # 검색어-빈도수 
-            print('\n'+'*'*50)
-            print("\t3일간 검색어 순위 막대 그래프")
-            print('*'*50)
-            showBar(fileToCounter()) # 막대그래프 그리기
-            answerStaticShow(in_num)
-            print()
-        
+            doMenu(in_num,showBar)
         # 상품 검색 후 브랜드 워드클라우드
         elif(in_num==5):
-            print('\n'+'*'*50)
-            print("\t상품 검색 후 브랜드 워드클라우드")
-            print('*'*50)
-            mkWordCloud(searchBrand()) # 워드클라우드 생성
-            answerDynamicShow(in_num)
-            print()
+            doMenu(in_num,mkWordCloud)
         # 상품 검색 후 브랜드 원 그래프
         elif(in_num==6):
-            print('\n'+'*'*50)
-            print("\t수집한 검색어의 빈도수 원 그래프")
-            print('*'*50)
-
-            brandCircle()
-            answerDynamicShow(in_num)
-            print()
-
+            doMenu(in_num,brandCircle)
         # 프로그램 종료
         elif(in_num==0):
-            deleteimsiFolder()              # imsiTemp폴더(내용있든 없든)삭제              
-            print('\n'+'*'*50)
-            print("\t   이용해 주셔서 감사합니다.")
-            print('*'*50)
+            doMenu(in_num,'')
             break
         
         elif(in_num < 0 or in_num > 6):
@@ -117,6 +86,7 @@ while(True):
         elif not float(e_munja[1]).is_integer() :
             # 소수점을 입력했을때 오류 해결
             print('소숫점이 아닌 0~9를 입력해주세요.\n')
-
+    except FileNotFoundError:
+        print("메뉴로 돌아갑니다.")
     except Exception:
         print("잘못된 입력입니다.")
