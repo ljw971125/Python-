@@ -54,8 +54,11 @@ while(True):
         e_list=[] # 에러 출력문 리스트
         e_list.append(str(value_e).split())
         e_munja = e_list[0][-1].split("'")
+
+        if (len(e_munja[1])>1):
+            print("한 자리 정수만 입력해주세요.")
         
-        if e_munja[1] == '' :
+        elif e_munja[1] == '' :
             # 스페이스바 일때
             print('공백입니다.\n')
 
@@ -67,7 +70,10 @@ while(True):
             # 한글을 입력했을때 오류 해결
             print('한글이 아닌 숫자 0~9를 입력해주세요.\n')
 
-        elif (ord('A') <= ord(e_munja[1][0])) and (ord(e_munja[1][0])<= ord('z')) :
+        elif (ord('A') <= ord(e_munja[1][0])) and (ord(e_munja[1][0])<= ord('Z')) :
+            # 영문을 입력했을때 오류 해결
+            print('영어가 아닌 숫자 0~9를 입력해주세요.\n')
+        elif (ord('a') <= ord(e_munja[1][0])) and (ord(e_munja[1][0])<= ord('z')) :
             # 영문을 입력했을때 오류 해결
             print('영어가 아닌 숫자 0~9를 입력해주세요.\n')
         
@@ -83,9 +89,12 @@ while(True):
             # 특수문자열 첫번째가 [ 부터 ` 까지 오류 해결
             print('특수문자가 아닌 1~9를 입력해주세요.\n')
 
+            
         elif not float(e_munja[1]).is_integer() :
             # 소수점을 입력했을때 오류 해결
             print('소숫점이 아닌 0~9를 입력해주세요.\n')
+            
+        
     except FileNotFoundError:
         print("메뉴로 돌아갑니다.")
     except Exception:
