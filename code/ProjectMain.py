@@ -1,11 +1,3 @@
-#환경설정
-'''
-1. 환경 : VSCode ,Jupyter notebook
-2. https://code.visualstudio.com/docs/?dv=win(vscode 실행시)
-2-1. ipykernel 설치 (※Jupyter notebook으로 실행시)
-3. 파이썬 3.10.10 64bit (https://www.python.org/ftp/python/3.10.10/python-3.10.10-amd64.exe)
--> Add python.exe to Path 체크 후 install Now
-'''
 from module import moduleinstall
 moduleinstall() # 모듈 통합 설치
 from project import*
