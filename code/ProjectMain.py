@@ -17,7 +17,7 @@ while(True):
         print()
         if(in_num==1):
             print("현재 10:33까지 5초마다 반복중입니다.")
-            print("참고) 시간변경시 auto.py의 117번째 줄의 at뒤 괄호의 숫자를 바꿔주시면 됩니다.")
+            print("참고) 시간변경시 auto.py의 117번째 줄의 at뒤 괄호의 숫자를 바꿔주시면 됩니다.\n")
             auto.autoSaveHour()   # 1시간 마다 데이터 자동축적
             print()
         elif(in_num==2): # 3일간 최대 많이 나온 검색어 상위 20
