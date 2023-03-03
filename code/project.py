@@ -93,7 +93,7 @@ def menu():
     print("\t무신사 쇼핑몰의 데이터 수집 및 분석") 
     print('*'*50,'\n')
     print("1) 데이터 크롤링 이후 축적") # bs4
-    print("2) 축적된 데이터 중 최대 많이 나온 검색어 상위 20") 
+    print("2) 축적된 데이터 중 최대 많이 나온 검색어 상위 20개") 
     print("3) 인기 검색어 빈도수 워드 클라우드") 
     print("4) 인기 검색어 순위의 빈도수 막대 그래프") 
     print("5) 인기 검색어 검색 후 브랜드 워드클라우드") #셀레니움
@@ -122,7 +122,7 @@ def star():
 def subMenuIntro(in_num):
     if(in_num==2):
         star()
-        print(" 축적된 데이터 중 최대 많이 나온 검색어 상위 20")
+        print(" 축적된 데이터 중 최대 많이 나온 검색어 상위 20개")
         star()
         print()
     elif(in_num==3):
@@ -246,7 +246,7 @@ def answerSave(in_num):
  '''
 def saveImg(in_num,image_name):     # 이미지 저장
     if(in_num==4):
-        imsiImg_name='막대.jpg'
+        imsiImg_name='stick.jpg'
         answer=imgSave(imsiImg_name,image_name)
         return answer
 
@@ -306,7 +306,7 @@ def deleteImg(in_num):
     f_name='imsiTemp'
     if(os.path.isdir(f_name)):
         if(in_num==4):
-            img_name='막대.jpg'
+            img_name='stick.jpg'
             removeImgFile(f_name,img_name)
         elif(in_num==6):
             img_name='circle.jpg'
@@ -415,12 +415,12 @@ def showBar(fileToCounter): #카운터 딕셔너리를 매개변수로 받습니
     plt.xlabel("검색어") # 이미지 x축 이름
     plt.ylabel("빈도수") # 이미지 y축 이름
     plt.bar(str_list[:20],int_list[:20],color=['lightcoral','khaki','greenyellow','lightskyblue','plum']) # 20개를 [빨 초 파 보 노]색깔의 순서대로 보여줍니다.
-    plt.savefig('imsiTemp\\막대.jpg') # imsiTemp폴더안에 막대.jpg라는 이름의 이미지파일을 저장합니다.
+    plt.savefig('imsiTemp\\stick.jpg') # imsiTemp폴더안에 막대.jpg라는 이름의 이미지파일을 저장합니다.
     plt.close(fig) # 이미지를 보여주지 않고 닫습니다.
     print()
     for i in range(20):
         print("%s : %d"%(str_list[i],int_list[i]))
-    image = Image.open("imsiTemp\\막대.jpg") # 이미지를 불러옵니다.
+    image = Image.open("imsiTemp\\stick.jpg") # 이미지를 불러옵니다.
     image.show() # 불러온 이미지를 보여줍니다.
 
 '''
