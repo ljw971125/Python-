@@ -94,12 +94,12 @@ def menu():
     print('*'*50,'\n')
     print("1) 데이터 크롤링 이후 축적") # bs4
     print("2) 02/21~23(3)일간 최대 많이 나온 검색어 상위 20") 
-    print("3) 02/21~23(3)일간 수집한 검색어의 빈도수 워드 클라우드") 
-    print("4) 02/21~23(3)일간 검색어 순위의 빈도수 막대 그래프") 
-    print("5) 상품 검색 후 브랜드 워드클라우드") #셀레니움
-    print("6) 상품 검색 후 브랜드 원 그래프")
-    print("0) 종료\n")
-
+    print("3) 인기 검색어 빈도수 워드 클라우드") 
+    print("4) 인기 검색어 순위의 빈도수 막대 그래프") 
+    print("5) 인기 검색어 검색 후 브랜드 워드클라우드") #셀레니움
+    print("6) 인기 검색어 검색 후 브랜드 원 그래프")
+    print("0) 종료")
+    print("\n참고) 인기 검색어는 2번 메뉴의 21~23일(3일)간 축적된 데이터의 빈도수 상위 20입니다.\n")
 
 '''
 함수명: star
@@ -127,20 +127,20 @@ def subMenuIntro(in_num):
         print()
     elif(in_num==3):
         star()
-        print("\t수집한 검색어의 빈도수 워드 클라우드")
+        print("\t인기 검색어의 빈도수 워드 클라우드")
         star()
     elif(in_num==4):
         star()
-        print("\t3일간 검색어 순위 막대 그래프")
+        print("\t인기 검색어 순위 막대 그래프")
         star()
     elif(in_num==5):
         star()
-        print("\t상품 검색 후 브랜드 워드클라우드")
+        print("\t인기 검색어 검색 후 브랜드 워드클라우드")
         star()
         print()
     elif(in_num==6):
         star()
-        print("\t수집한 검색어의 빈도수 원 그래프")
+        print("\t인기 검색어 검색 후 수집한 검색어의 브랜드 빈도수 원 그래프")
         star()
         print()
     elif(in_num==0):
@@ -180,14 +180,16 @@ def doMenu(in_num,func_name):
         subMenuIntro(in_num)
         searchTop(fileToCounter())
         print()
+        print("참고) 위의 인기 검색어 중 하나를 입력해주세요.")
+        print()
         while(True):
-            input_product = input('상품명을 입력해주세요.(메뉴화면 돌아가기:y) : ')
+            input_product = input('인기 검색어를 입력해주세요.(메뉴화면 돌아가기:y) : ')
             if(input_product in liYES):
                 break    
             else:
                 counter=searchBrand(input_product)
                 if(counter==1):
-                    print("빈도수 상위 20개의 검색어에 포함되지 않았습니다.\n")
+                    print("인기 검색어에 포함되지 않았습니다.\n")
                     continue
                 else:
                     func_name(counter)
@@ -195,7 +197,7 @@ def doMenu(in_num,func_name):
                     break
         print()
     else:
-        deleteimsiFolder()              # imsiTemp폴더(내용있든 없든)삭제              
+        deleteImsiFolder()              # imsiTemp폴더(내용있든 없든)삭제              
         subMenuIntro(in_num)
 
 '''
@@ -386,7 +388,7 @@ def removeImgFile(f_name,img_name):
 '''  
 
 
-def deleteimsiFolder(): # 폴더삭제
+def deleteImsiFolder(): # 폴더삭제
     try:
         if os.path.exists('imsiTemp'): # 'imsiTemp' 디렉토리가 존재하면
             shutil.rmtree('imsiTemp') # 전체삭제(파일,폴더 전부다)
