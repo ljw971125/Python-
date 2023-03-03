@@ -80,6 +80,7 @@ def toKorean(): # 한글 함수
     elif platform.system() == 'Linux': # 리눅스 (구글 콜랩)
         plt.rc('font', family='Malgun Gothic') 
     plt.rcParams['axes.unicode_minus'] = False # 한글 폰트 사용시 마이너스 폰트 깨짐 해결
+    print("한글화 완료\n")
 
 '''
 함수명: menu

@@ -5,19 +5,17 @@ from project import*
 import auto # 1시간마다 20개씩 자동으로 크롤링하는 모듈
 print("\n2조 : 전장현 // 이지운 // 김민수 // 장윤종 // 장기헌\n")
 
+createImsiFolder() # 임시폴더 자동생성
+createImgFolder() # 저장할 이미지 폴더 자동생성
+toKorean() # 한글화
+
+
 while(True):
     menu()
-
-    createImsiFolder() # 임시폴더 자동생성
-    createImgFolder() # 저장할 이미지 폴더 자동생성
-    toKorean() # 한글화
-
     try:
         in_num=int(input("보고싶은 메뉴의 번호를 입력하세요.(종료:0) : "))
         print()
         if(in_num==1):
-            print("현재 10:33까지 5초마다 반복중입니다.")
-            print("참고) 시간변경시 auto.py의 117번째 줄의 at뒤 괄호의 숫자를 바꿔주시면 됩니다.\n")
             auto.autoSaveHour()   # 1시간 마다 데이터 자동축적
             print()
         elif(in_num==2): # 3일간 최대 많이 나온 검색어 상위 20
