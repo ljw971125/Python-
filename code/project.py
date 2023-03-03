@@ -215,17 +215,33 @@ def doMenu(in_num,func_name):
  '''
 def answerStaticSave(in_num):
     question=input("\n이미지를 저장하시겠습니까? (Y/N) : ")
-    if(question in liYES):
-        print("정적이라 정해진 이름으로 저장합니다.")
-        saveImg(in_num,'') # saveImg폴더안에 이미지 저장
-        deleteImg(in_num) # imsiTemp폴더에 생성된 이미지 삭제
-        print()
-    elif(question in liNO):
-        print("저장하지 않습니다.")
-        deleteImg(in_num) # imsiTemp폴더에 생성된 이미지 삭제
+    if(in_num==3):
+        if(question in liYES):
+            print("SF_wordcloud.jpg로 저장합니다.")
+            saveImg(in_num,'') # saveImg폴더안에 이미지 저장
+            deleteImg(in_num) # imsiTemp폴더에 생성된 이미지 삭제
+            print()
+        elif(question in liNO):
+            print("저장하지 않습니다.")
+            deleteImg(in_num) # imsiTemp폴더에 생성된 이미지 삭제
+        else:
+            print("잘못 입력하셨습니다.(저장하지 않습니다.)")
+            deleteImg(in_num) # imsiTemp폴더에 생성된 이미지 삭제
+    elif(in_num==4):
+        
+        if(question in liYES):
+            print("막대.jpg로 저장합니다.")
+            saveImg(in_num,'') # saveImg폴더안에 이미지 저장
+            deleteImg(in_num) # imsiTemp폴더에 생성된 이미지 삭제
+            print()
+        elif(question in liNO):
+            print("저장하지 않습니다.")
+            deleteImg(in_num) # imsiTemp폴더에 생성된 이미지 삭제
+        else:
+            print("잘못 입력하셨습니다.(저장하지 않습니다.)")
+            deleteImg(in_num) # imsiTemp폴더에 생성된 이미지 삭제
     else:
-        print("잘못 입력하셨습니다.(저장하지 않습니다.)")
-        deleteImg(in_num) # imsiTemp폴더에 생성된 이미지 삭제
+        print("매개변수가 잘못되었습니다.")        
 '''
 함수명: answerDynamicSave
             변수명      자료형      설명
