@@ -94,8 +94,8 @@ def menu():
     print('*'*50,'\n')
     print("1) 데이터 크롤링 이후 축적") # bs4
     print("2) 02/21~23(3)일간 최대 많이 나온 검색어 상위 20") 
-    print("3) 수집한 검색어의 빈도수 워드 클라우드") 
-    print("4) 3일간 검색어 순위 막대 그래프") 
+    print("3) 02/21~23(3)일간 수집한 검색어의 빈도수 워드 클라우드") 
+    print("4) 02/21~23(3)일간 검색어 순위 막대 그래프") 
     print("5) 상품 검색 후 브랜드 워드클라우드") #셀레니움
     print("6) 상품 검색 후 브랜드 원 그래프")
     print("0) 종료\n")
@@ -178,6 +178,8 @@ def doMenu(in_num,func_name):
         print()
     elif(in_num==5 or in_num==6): # 동적인(계속 변하는) 메뉴
         subMenuIntro(in_num)
+        searchTop(fileToCounter())
+        print()
         while(True):
             input_product = input('상품명을 입력해주세요.(메뉴화면 돌아가기:y) : ')
             if(input_product in liYES):
@@ -629,6 +631,9 @@ def mkWordCloud(func_counter):
         wordcloud_dict = dict(zip(fc_keys,fc_values))
         sorted_by_value = sorted(wordcloud_dict.items(), key=operator.itemgetter(1), reverse=True) # value(빈도수)값으로 내림차순 정렬
         t_mask = np.array(Image.open('image\\t5_2.jpg'))
+
+        for sorted_dict in sorted_by_value:                     # 정렬된 상태의 이름과 빈도수 출력
+            print("%s : %d"%(sorted_dict[0],sorted_dict[1]))
 
         fontpath='C:\\Windows\\Fonts\\NGULIM.TTF'
 
