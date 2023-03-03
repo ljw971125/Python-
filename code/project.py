@@ -95,7 +95,7 @@ def menu():
     print("1) 데이터 크롤링 이후 축적") # bs4
     print("2) 02/21~23(3)일간 최대 많이 나온 검색어 상위 20") 
     print("3) 02/21~23(3)일간 수집한 검색어의 빈도수 워드 클라우드") 
-    print("4) 02/21~23(3)일간 검색어 순위 막대 그래프") 
+    print("4) 02/21~23(3)일간 검색어 순위의 빈도수 막대 그래프") 
     print("5) 상품 검색 후 브랜드 워드클라우드") #셀레니움
     print("6) 상품 검색 후 브랜드 원 그래프")
     print("0) 종료\n")
@@ -460,7 +460,7 @@ def showBar(fileToCounter): #카운터 딕셔너리를 매개변수로 받습니
     plt.title("3일간의 검색 빈도수") # 이미지 타이틀
     plt.xlabel("검색어") # 이미지 x축 이름
     plt.ylabel("빈도수") # 이미지 y축 이름
-    plt.bar(str_list[:20],int_list[:20],color=['r','g','b','purple','y']) # 20개를 [빨 초 파 보 노]색깔의 순서대로 보여줍니다.
+    plt.bar(str_list[:20],int_list[:20],color=['lightcoral','khaki','greenyellow','lightskyblue','plum']) # 20개를 [빨 초 파 보 노]색깔의 순서대로 보여줍니다.
     plt.savefig('imsiTemp\\막대.jpg') # imsiTemp폴더안에 막대.jpg라는 이름의 이미지파일을 저장합니다.
     plt.close(fig) # 이미지를 보여주지 않고 닫습니다.
     print()
@@ -577,7 +577,7 @@ def brandCircle(brand_counter):
                     high_values.append(bc_value[i])
                     high_keys.append(bc_keys[i])
                 
-                                                       
+        colors=['mediumslateblue','yellow','lightcoral','lime','plum','skyblue','sandybrown','springgreen','pink','aquamarine']                                               
         value_max = 0                                  #high_values값의 max값 저장 변수
         explode_value = []                             #explode: 원그래프 중심에서 멀어지는 정도, explode값 저장 변수
 
@@ -592,7 +592,7 @@ def brandCircle(brand_counter):
                 explode_value.append(0)                #explode_value값에 0 대입
         
                                                        #원그래프 Figure 생성, high_values대입, labels에 high_keys값 대입, explode에 explode_value값 대입, autopct는 비율표시        
-        plt.pie(high_values, labels=high_keys, explode=explode_value, autopct='%.2f')
+        plt.pie(high_values, labels=high_keys, explode=explode_value, autopct='%.2f', colors=colors)
 
         plt.savefig('imsiTemp\\circle.jpg')            #imsiTemp 폴더에 원그래프.jpg 
         plt.close()                                    #그래프 Figure 닫기
