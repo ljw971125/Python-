@@ -174,7 +174,7 @@ def doMenu(in_num,func_name):
     elif(in_num==3 or in_num==4):  # 정적인(변하지 않는) 메뉴
         subMenuIntro(in_num)
         func_name(fileToCounter()) 
-        answerStaticSave(in_num)
+        answerSave(in_num)
         print()
     elif(in_num==5 or in_num==6): # 동적인(계속 변하는) 메뉴
         subMenuIntro(in_num)
@@ -193,57 +193,15 @@ def doMenu(in_num,func_name):
                     continue
                 else:
                     func_name(counter)
-                    answerDynamicSave(in_num)
+                    answerSave(in_num)
                     break
         print()
     else:
         deleteImsiFolder()              # imsiTemp폴더(내용있든 없든)삭제              
         subMenuIntro(in_num)
-
+     
 '''
-함수명: answerStaticSave
-            변수명      자료형      설명
-매개변수    in_num      int         메뉴 번호
-변수        question    input(str)  저장할지 물어보는 문자열
-변수        exist       str         메뉴에서 반복문을 반복하기 위한 반한값
-변수        noexist     str         메뉴에서 반복문을 종료하기 위한 반환값
-사용함수    saveImg     function    이미지 저장 함수
-사용함수    deleteImg   function    imsiTemp안의 이미지 삭제 함수
-              
-반환값 : 없음
-기능설명   :  정적 이미지 저장 질문 후 저장
- '''
-def answerStaticSave(in_num):
-    question=input("\n이미지를 저장하시겠습니까? (Y/N) : ")
-    if(in_num==3):
-        if(question in liYES):
-            print("SF_wordcloud.jpg로 저장합니다.")
-            saveImg(in_num,'') # saveImg폴더안에 이미지 저장
-            deleteImg(in_num) # imsiTemp폴더에 생성된 이미지 삭제
-            print()
-        elif(question in liNO):
-            print("저장하지 않습니다.")
-            deleteImg(in_num) # imsiTemp폴더에 생성된 이미지 삭제
-        else:
-            print("잘못 입력하셨습니다.(저장하지 않습니다.)")
-            deleteImg(in_num) # imsiTemp폴더에 생성된 이미지 삭제
-    elif(in_num==4):
-        
-        if(question in liYES):
-            print("막대.jpg로 저장합니다.")
-            saveImg(in_num,'') # saveImg폴더안에 이미지 저장
-            deleteImg(in_num) # imsiTemp폴더에 생성된 이미지 삭제
-            print()
-        elif(question in liNO):
-            print("저장하지 않습니다.")
-            deleteImg(in_num) # imsiTemp폴더에 생성된 이미지 삭제
-        else:
-            print("잘못 입력하셨습니다.(저장하지 않습니다.)")
-            deleteImg(in_num) # imsiTemp폴더에 생성된 이미지 삭제
-    else:
-        print("매개변수가 잘못되었습니다.")        
-'''
-함수명: answerDynamicSave
+함수명: answerSave
             변수명      자료형      설명
 매개변수    in_num      int         메뉴 번호
 변수        question    input(str)  저장할지 물어보는 문자열
@@ -252,9 +210,9 @@ def answerStaticSave(in_num):
 사용함수    deleteImg   function    imsiTemp안의 이미지 삭제 함수
               
 반환값 : 없음
-기능설명   :  동적 이미지 저장 질문 후 임시포 실행
+기능설명   :  이미지 저장 질문 후 임시포 실행
  '''
-def answerDynamicSave(in_num):   
+def answerSave(in_num):   
     question=input("\n이미지를 저장하시겠습니까? (Y/N) : ")
     if(question in liYES):
         while(True):
@@ -289,45 +247,28 @@ def answerDynamicSave(in_num):
 def saveImg(in_num,image_name):     # 이미지 저장
     if(in_num==4):
         imsiImg_name='막대.jpg'
-        image_name='막대.jpg'
-        staticImgSave(imsiImg_name,image_name)
+        answer=imgSave(imsiImg_name,image_name)
+        return answer
 
     elif(in_num==3):
         imsiImg_name='wordcloud.jpg'
-        image_name='SF_wordcloud.jpg'
-        staticImgSave(imsiImg_name,image_name)
+        answer=imgSave(imsiImg_name,image_name)
+        return answer
 
     elif(in_num==6): # 원그래프
         imsiImg_name='circle.jpg'
-        answer=dynamicImgSave(imsiImg_name,image_name)
+        answer=imgSave(imsiImg_name,image_name)
         return answer
     
     elif(in_num==5) : # 워드클라우드
         imsiImg_name='wordcloud.jpg'
-        answer=dynamicImgSave(imsiImg_name,image_name)
+        answer=imgSave(imsiImg_name,image_name)
         return answer
     else:
         print("메인을 수정하세요 매개변수가 잘못되었습니다.\n")
-
+    
 '''
-함수명: staticImgSave
-            변수명          자료형      설명
-매개변수    imsiImg_name      str       받아올 임시폴더의 이미지 이름
-매개변수    image_name        str       받아온 이미지 이름
-변수        image            imageopen  파일 열기
-            
-반환값 : 없음
-기능설명   :   정적인 이미지(메뉴 3,4번) 이미지 저장
- '''
-def staticImgSave(imsiImg_name,image_name):
-    if(os.path.isfile(('saveImg\\'+image_name))):
-        print("같은 이름의 이미지가 이미 존재합니다.")
-    else:
-        image = Image.open("imsiTemp\\"+imsiImg_name) # imsiTemp폴더 안의 이미지를 열어서 image변수에 저장
-        image.save(("saveImg\\"+image_name),"JPEG")
-        
-'''
-함수명: dynamicImgSave
+함수명: imgSave
             변수명          자료형      설명
 매개변수    imsiImg_name    str       받아올 임시폴더의 이미지 이름
 매개변수    image_name      str       받아온 이미지 이름
@@ -336,9 +277,9 @@ def staticImgSave(imsiImg_name,image_name):
 반환값 :    rename          str         파일이 존재할 경우 반복을 위해 반환시켜줄 문자열
 반환값 :    no_renmae       str         파일이 존재하지 않을 경우 반복문을 탈출하기 위한 반환값
 
-기능설명   :   동적인 이미지(메뉴 5,6번) 이미지 저장
+기능설명   :   이미지 저장
  '''
-def dynamicImgSave(imsiImg_name,image_name):
+def imgSave(imsiImg_name,image_name):
     if(os.path.isfile("saveImg\\"+image_name+".jpg")):
         print("같은 이름의 이미지가 이미 존재합니다.")
         rename='rename'
