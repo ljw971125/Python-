@@ -21,7 +21,8 @@ while(True):
     toKorean() # 한글화
 
     try:
-        in_num=int(input("보고싶은 메뉴의 번호를 입력하세요.(종료:0)\n"))
+        in_num=int(input("보고싶은 메뉴의 번호를 입력하세요.(종료:0) : "))
+        print()
         if(in_num==1):
             auto.autoSaveHour()   # 1시간 마다 데이터 자동축적
             print()
@@ -68,31 +69,31 @@ while(True):
 
         elif (ord('ㄱ') <= ord(e_munja[1][0])) and (ord(e_munja[1][0])<= ord('힣')) :
             # 한글을 입력했을때 오류 해결
-            print('한글이 아닌 숫자 0~9를 입력해주세요.\n')
+            print('한글이 아닌 숫자 0~6을 입력해주세요.\n')
 
         elif (ord('A') <= ord(e_munja[1][0])) and (ord(e_munja[1][0])<= ord('Z')) :
             # 영문을 입력했을때 오류 해결
-            print('영어가 아닌 숫자 0~9를 입력해주세요.\n')
+            print('영어가 아닌 숫자 0~6을 입력해주세요.\n')
         elif (ord('a') <= ord(e_munja[1][0])) and (ord(e_munja[1][0])<= ord('z')) :
             # 영문을 입력했을때 오류 해결
-            print('영어가 아닌 숫자 0~9를 입력해주세요.\n')
+            print('영어가 아닌 숫자 0~6을 입력해주세요.\n')
         
         elif (ord(e_munja[1][0])>=ord('!')) and (ord(e_munja[1][0])<=ord('/')) :
             # 특수문자열 첫번째가 ! 부터 / 까지 오류 해결
-            print('특수문자가 아닌 1~9를 입력해주세요.\n')
+            print('특수문자가 아닌 0~6을 입력해주세요.\n')
         
         elif (ord(e_munja[1][0])>=58) and (ord(e_munja[1][0]))<=64 :
             # 특수문자열 첫번째가 : 부터 @ 까지 오류 해결
-            print('특수문자가 아닌 1~9를 입력해주세요.\n')
+            print('특수문자가 아닌 0~6을 입력해주세요.\n')
 
         elif (ord(e_munja[1][0])>=91) and (ord(e_munja[1][0]))<=96 :
             # 특수문자열 첫번째가 [ 부터 ` 까지 오류 해결
-            print('특수문자가 아닌 1~9를 입력해주세요.\n')
+            print('특수문자가 아닌 0~6을 입력해주세요.\n')
 
             
         elif not float(e_munja[1]).is_integer() :
             # 소수점을 입력했을때 오류 해결
-            print('소숫점이 아닌 0~9를 입력해주세요.\n')
+            print('소숫점이 아닌 0~6을 입력해주세요.\n')
             
         
     except FileNotFoundError:

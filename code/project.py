@@ -124,6 +124,7 @@ def subMenuIntro(in_num):
         star()
         print(" 02/21~23(3)일간 최대 많이 나온 검색어 상위 20")
         star()
+        print()
     elif(in_num==3):
         star()
         print("\t수집한 검색어의 빈도수 워드 클라우드")
@@ -136,10 +137,12 @@ def subMenuIntro(in_num):
         star()
         print("\t상품 검색 후 브랜드 워드클라우드")
         star()
+        print()
     elif(in_num==6):
         star()
         print("\t수집한 검색어의 빈도수 원 그래프")
         star()
+        print()
     elif(in_num==0):
         star()
         print("\t   이용해 주셔서 감사합니다.")
@@ -176,7 +179,7 @@ def doMenu(in_num,func_name):
     elif(in_num==5 or in_num==6): # 동적인(계속 변하는) 메뉴
         subMenuIntro(in_num)
         while(True):
-            input_product = input('상품명을 입력해주세요{메뉴화면 돌아가기:y}.\n')
+            input_product = input('상품명을 입력해주세요.(메뉴화면 돌아가기:y) : ')
             if(input_product in liYES):
                 break    
             else:
@@ -207,7 +210,7 @@ def doMenu(in_num,func_name):
 기능설명   :  정적 이미지 저장 질문 후 저장
  '''
 def answerStaticSave(in_num):
-    question=input("\n이미지를 저장하시겠습니까? (Y/N)\n")
+    question=input("\n이미지를 저장하시겠습니까? (Y/N) : ")
     if(question in liYES):
         print("정적이라 정해진 이름으로 저장합니다.")
         saveImg(in_num,'') # saveImg폴더안에 이미지 저장
@@ -235,7 +238,7 @@ def answerStaticSave(in_num):
 기능설명   :  동적 이미지 저장 질문 후 임시포 실행
  '''
 def answerDynamicSave(in_num):   
-    question=input("\n이미지를 저장하시겠습니까? (Y/N)\n")
+    question=input("\n이미지를 저장하시겠습니까? (Y/N) : ")
     if(question in liYES):
         while(True):
             image_name=input("저장하고 싶은 이미지파일명 : ") 
