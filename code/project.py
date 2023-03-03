@@ -140,7 +140,7 @@ def subMenuIntro(in_num):
         print()
     elif(in_num==6):
         star()
-        print("\t인기 검색어 검색 후 수집한 검색어의 브랜드 빈도수 원 그래프")
+        print("  인기 검색어 검색 후 브랜드 빈도수 원 그래프")
         star()
         print()
     elif(in_num==0):
