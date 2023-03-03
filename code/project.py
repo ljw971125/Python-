@@ -221,14 +221,11 @@ def answerStaticSave(in_num):
         deleteImg(in_num) # imsiTemp폴더에 생성된 이미지 삭제
         print()
     elif(question in liNO):
-        print("저장하지 않습니다.\n")
+        print("저장하지 않습니다.")
         deleteImg(in_num) # imsiTemp폴더에 생성된 이미지 삭제
-        print()
     else:
-        print("잘못 입력하셨습니다.(저장하지 않습니다.\n)")
+        print("잘못 입력하셨습니다.(저장하지 않습니다.)")
         deleteImg(in_num) # imsiTemp폴더에 생성된 이미지 삭제
-        print()
-
 '''
 함수명: answerDynamicSave
             변수명      자료형      설명
@@ -254,13 +251,11 @@ def answerDynamicSave(in_num):
         deleteImg(in_num) # imsiTemp폴더에 생성된 이미지 삭제
         print()
     elif(question in liNO):
-        print("저장하지 않습니다.\n")
+        print("저장하지 않습니다.")
         deleteImg(in_num) # imsiTemp폴더에 생성된 이미지 삭제
-        print()
     else:
-        print("잘못 입력하셨습니다.(저장하지 않습니다.)\n")
+        print("잘못 입력하셨습니다.(저장하지 않습니다.)")
         deleteImg(in_num) # imsiTemp폴더에 생성된 이미지 삭제
-        print()
 
 '''
 함수명: saveImg
