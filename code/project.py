@@ -37,6 +37,8 @@ in_num      메뉴
 liYES=['y',"yes","Y","YES","Yes","네","예","넵","옙","ㅔ","ㅇ","ㅇㅋ","그래","그래요","그래용","ㅛ"]
 liNO=["n","no","N","NO","No","아니요","x","X","ㄴ","아니","싫어","싫어요","안할래요","안 할래요","ㅜ"]
 
+del_word_list=['[12시간세일]','[72시간세일]','[브랜드 위크]','[위클리특가]','[주말특가]','[오늘만이가격]','주말특가','72시간세일','12시간세일','브랜드 위크','위클리특가','오늘만이가격']
+
 '''
  함수명: createImsiFolder
             변수명    자료형    설명
@@ -523,9 +525,7 @@ def brandCircle(brand_counter):
 
                                                        #↓↓데이터가 너무 많아 value값이 20이상인 데이터만 출력하는 코드↓↓
         high_keys=[]                                   #value값이 20이상인 key값을 대입하는 변수
-        high_values = []                               #value값이 20이상인 value값을 대입하는 변수
-        del_word_list=['[72시간세일]','[브랜드 위크]','[위클리특가]','[주말특가]','[오늘만이가격]','주말특가','72시간세일','브랜드 위크','위클리특가','오늘만이가격']
-        
+        high_values = []                               #value값이 20이상인 value값을 대입하는 변수        
         if(len(bc_keys)>10):                           # bc_key의 길이가 10보다 클때
             for i in range(len(bc_keys)):                  #bc_keys의 길이만큼 반복
                 if(bc_values[i] >= 20):                    #만약 bc_value의 i번째 값이 20 이상일 때
@@ -610,7 +610,6 @@ def mkWordCloud(func_counter):
     else:
         fc_keys=list(func_counter.keys())
         fc_values=list(func_counter.values())
-        del_word_list=['[72시간세일]','[브랜드위크]','[위클리특가]','[오늘만이가격]','72시간세일','브랜드위크','위클리특가','오늘만이가격']
 
         for i in range(len(fc_keys)):
             fc_keys[i] = fc_keys[i].replace(' ', '')
