@@ -1,7 +1,8 @@
 from module import moduleinstall
 moduleinstall() # 모듈 통합 설치
 from project import*
-45
+import os
+
 import auto # 1시간마다 20개씩 자동으로 크롤링하는 모듈
 print("\n2팀 : 전장현 // 이지운 // 김민수 // 장윤종 // 장기헌\n")
 

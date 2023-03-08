@@ -6,6 +6,7 @@ import os # 경로상의 파일 존재여부를 확인하기 위해 import한 �
 import sys # 시스템 종료를 위한 import 모듈
 import datetime as dt # 오늘 날짜와 시간을 출력하기 위해 import한 모듈
 
+
 '''
 전체 설명 : 1시간마다 자동으로 rankdata 안에 save_data.txt에 자동으로 저장하는 메서드
 
@@ -13,8 +14,11 @@ import datetime as dt # 오늘 날짜와 시간을 출력하기 위해 import한
 1시간씩 실행할 때
 줄 번호 : 113 번을 주석 해제하세요.  그리고  줄 번호 : 115 번을 주석처리 해주세요.
 '''
+year=dt.datetime.now().year
+month=dt.datetime.now().month
+day=dt.datetime.now().day
 
-
+file_name="%04d%02d%02d_축적데이터"%(year,month,day)
 '''
  함수명: saveFile
             변수명      자료형    설명
@@ -25,12 +29,12 @@ import datetime as dt # 오늘 날짜와 시간을 출력하기 위해 import한
 # 파일 저장 모듈
 def saveFile(fixed_list):
 
-    if(os.path.isfile('rankdata\\save_data.txt')): # 경로상에 save_data2.txt 이름의 파일이 있을 경우
-        f=open('rankdata\\save_data.txt','a',encoding='utf-8')
+    if(os.path.isfile('rankdata\\'+file_name)): # 경로상에 save_data2.txt 이름의 파일이 있을 경우
+        f=open('rankdata\\'+file_name,'a',encoding='utf-8')
         for i in fixed_list: # 리스트 값 가져오기
             f.write(i+'\n') # '\n' 으로 줄을 띄우면서 파일에 씁니다
     else:
-        f=open('rankdata\\save_data.txt','w',encoding='utf-8')
+        f=open('rankdata\\'+file_name,'w',encoding='utf-8')
         for i in fixed_list: 
             f.write(i+'\n') # '\n' 으로 줄을 띄우면서 파일에 씁니다
     f.close() # 파일 닫기
@@ -120,5 +124,5 @@ def autoSaveHour():
 
 
     except SystemExit:
-        print("자동 수집을 종료합니다. (save_data2.txt에 저장되었습니다.)")
+        print("자동 수집을 종료합니다.")
         

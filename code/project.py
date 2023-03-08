@@ -216,10 +216,10 @@ def doMenu(in_num,func_name):
 기능설명   :  이미지 저장 질문 후 임시포 실행
  '''
 def answerSave(in_num):   
-    question=input("\n이미지를 저장하시겠습니까? (Y/N) : ")
+    question=input("\n이미지를 저장하시겠습니까? (Y/N) :")
     if(question in liYES):
         while(True):
-            image_name=input("저장하고 싶은 이미지파일명 : ") 
+            image_name=input("저장하고 싶은 이미지파일명(확장자는 .jpg로 저장됩니다.) : ") 
             answer=saveImg(in_num,image_name) # answer변수에 리턴값 받아오기
             if(answer=='rename'): # 받아온 answer변수의 값이 q일때 image_name값 다시 입력
                 continue  # 다시 반복
@@ -288,9 +288,17 @@ def imgSave(imsiImg_name,image_name):
         rename='rename'
         return rename
     else:
-        image = Image.open(("imsiTemp\\"+imsiImg_name))# imsiTemp폴더 안의 이미지를 열어서 image변수에 저장
-        image.save(("saveImg\\"+image_name+".jpg"),"JPEG") # image변수를 현재경로의 매개변수 값으로 저장
-        no_rename='no'
+        if('.' in image_name):
+            print(".이 들어간 이름은 사용할 수 없습니다.")
+            no_rename='rename'
+        elif(""==image_name):
+            print("이미지 이름을 적어주세요 공백입니다.")
+            no_rename='rename'
+        else:
+            image = Image.open(("imsiTemp\\"+imsiImg_name))# imsiTemp폴더 안의 이미지를 열어서 image변수에 저장
+            image.save(("saveImg\\"+image_name+".jpg"),"JPEG") # image변수를 현재경로의 매개변수 값으로 저장
+            print("\n경로 %s\saveImg\%s\n%s이름의 이미지가 저장되었습니다."%(os.getcwd(),image_name,image_name))
+            no_rename='no'
         return no_rename
 
 '''
@@ -410,7 +418,6 @@ def searchTop(fileToCounter):
 ''' 
 # 저장된 파일을 바탕으로 막대그래프
 def showBar(fileToCounter): #카운터 딕셔너리를 매개변수로 받습니다.
-
     str_list=list(fileToCounter.keys()) # labels라는 이름의 리스트에 카운터딕셔너리의 keys값을 넣습니다.
     int_list=list(fileToCounter.values()) # values라는 이름의 리스트에 카운터딕셔너리의 values값을 넣습니다.
     fig=plt.figure(figsize=(20,10)) # 이미지 크기
@@ -423,6 +430,7 @@ def showBar(fileToCounter): #카운터 딕셔너리를 매개변수로 받습니
     print()
     for i in range(20):
         print("%s : %d"%(str_list[i],int_list[i]))
+    print("\n전체데이터 %d개 중 20개만을 이미지로 보여줍니다."%len(str_list))
     image = Image.open("imsiTemp\\stick.jpg") # 이미지를 불러옵니다.
     image.show() # 불러온 이미지를 보여줍니다.
 
@@ -555,6 +563,7 @@ def brandCircle(brand_counter):
             plt.close()                                    #그래프 Figure 닫기
             for i in range(0,len(high_keys)):
                 print("%s : %d"%(high_keys[i],high_values[i]))
+            print("전체 데이터 갯수는 %d입니다."%len(high_keys))
             image = Image.open("imsiTemp\\circle.jpg")     #image 변수에 circle.png파일 대입
             image.show()                                   #image 변수에 저장된 사진 출력
 
@@ -585,6 +594,7 @@ def brandCircle(brand_counter):
             plt.close()                                    #그래프 Figure 닫기
             for i in range(0,len(high_keys)):
                 print("%s : %d"%(high_keys[i],high_values[i]))
+            print("\n전체 데이터 갯수는 %d입니다."%len(high_keys))
             image = Image.open("imsiTemp\\circle.jpg")     #image 변수에 circle.png파일 대입
             image.show()                                   #image 변수에 저장된 사진 출력
 
@@ -618,9 +628,11 @@ def mkWordCloud(func_counter):
         sorted_by_value = sorted(wordcloud_dict.items(), key=operator.itemgetter(1), reverse=True) # value(빈도수)값으로 내림차순 정렬
         t_mask = np.array(Image.open('image\\t5_2.jpg'))
 
+        cnt=0
         for sorted_dict in sorted_by_value:                     # 정렬된 상태의 이름과 빈도수 출력
             print("%s : %d"%(sorted_dict[0],sorted_dict[1]))
-
+            cnt+=1
+        print("\n전체 데이터 갯수는 %d입니다."%(cnt))
         fontpath='C:\\Windows\\Fonts\\NGULIM.TTF'
 
         wc = WordCloud(
