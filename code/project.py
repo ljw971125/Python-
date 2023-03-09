@@ -421,16 +421,16 @@ def showBar(fileToCounter): #카운터 딕셔너리를 매개변수로 받습니
     str_list=list(fileToCounter.keys()) # labels라는 이름의 리스트에 카운터딕셔너리의 keys값을 넣습니다.
     int_list=list(fileToCounter.values()) # values라는 이름의 리스트에 카운터딕셔너리의 values값을 넣습니다.
     fig=plt.figure(figsize=(20,10)) # 이미지 크기
-    plt.title("3일간의 검색 빈도수") # 이미지 타이틀
-    plt.xlabel("검색어") # 이미지 x축 이름
-    plt.ylabel("빈도수") # 이미지 y축 이름
+    plt.title("3일간의 검색 빈도수", fontsize=30) # 이미지 타이틀
+    plt.xlabel("검색어", fontsize=15) # 이미지 x축 이름
+    plt.ylabel("빈도수", fontsize=15) # 이미지 y축 이름
     plt.bar(str_list[:20],int_list[:20],color=['lightcoral','khaki','greenyellow','lightskyblue','plum']) # 20개를 [빨 초 파 보 노]색깔의 순서대로 보여줍니다.
     plt.savefig('imsiTemp\\stick.jpg') # imsiTemp폴더안에 막대.jpg라는 이름의 이미지파일을 저장합니다.
     plt.close(fig) # 이미지를 보여주지 않고 닫습니다.
     print()
     for i in range(20):
         print("%s : %d"%(str_list[i],int_list[i]))
-    print("\n전체데이터 %d개 중 20개만을 이미지로 보여줍니다."%len(str_list))
+    print("\n전체 데이터 개수는 %d개이며 20개의 데이터만 표시합니다."%len(str_list))
     image = Image.open("imsiTemp\\stick.jpg") # 이미지를 불러옵니다.
     image.show() # 불러온 이미지를 보여줍니다.
 
@@ -531,6 +531,13 @@ def brandCircle(brand_counter):
 
         colors=['mediumslateblue','yellow','lightcoral','lime','plum','skyblue','sandybrown','springgreen','pink','aquamarine']   # 그래프 색깔  
 
+        list11=[]
+        for i in range(len(bc_keys)):                  #bc_keys의 길이만큼 반복
+            if bc_keys[i] in del_word_list:
+                pass
+            else:
+                list11.append(bc_keys[i])
+
                                                        #↓↓데이터가 너무 많아 value값이 20이상인 데이터만 출력하는 코드↓↓
         high_keys=[]                                   #value값이 20이상인 key값을 대입하는 변수
         high_values = []                               #value값이 20이상인 value값을 대입하는 변수        
@@ -563,11 +570,18 @@ def brandCircle(brand_counter):
             plt.close()                                    #그래프 Figure 닫기
             for i in range(0,len(high_keys)):
                 print("%s : %d"%(high_keys[i],high_values[i]))
-            print("전체 데이터 갯수는 %d입니다."%len(high_keys))
+            print("\n전체 데이터 개수는 %d개이며 최고 많은 빈도수인 %d개의 데이터만 표시합니다."%(len(list11),len(high_keys)))
             image = Image.open("imsiTemp\\circle.jpg")     #image 변수에 circle.png파일 대입
             image.show()                                   #image 변수에 저장된 사진 출력
 
         else:                                              #bc_key가 10보다 작거나 같을때
+            list11=[]
+            for i in range(len(bc_keys)):                  #bc_keys의 길이만큼 반복
+                if bc_keys[i] in del_word_list:
+                    pass
+                else:
+                    list11.append(bc_keys[i])
+
             for i in range(len(bc_keys)):                  #bc_keys의 길이만큼 반복
                 if bc_keys[i] in del_word_list:
                     pass
@@ -594,7 +608,7 @@ def brandCircle(brand_counter):
             plt.close()                                    #그래프 Figure 닫기
             for i in range(0,len(high_keys)):
                 print("%s : %d"%(high_keys[i],high_values[i]))
-            print("\n전체 데이터 갯수는 %d입니다."%len(high_keys))
+            print("\n전체 데이터 개수는 %d개이며 최고 많은 빈도수인 %d개의 데이터만 보여줍니다."%(len(list11),len(high_keys)))
             image = Image.open("imsiTemp\\circle.jpg")     #image 변수에 circle.png파일 대입
             image.show()                                   #image 변수에 저장된 사진 출력
 
@@ -632,7 +646,7 @@ def mkWordCloud(func_counter):
         for sorted_dict in sorted_by_value:                     # 정렬된 상태의 이름과 빈도수 출력
             print("%s : %d"%(sorted_dict[0],sorted_dict[1]))
             cnt+=1
-        print("\n전체 데이터 갯수는 %d입니다."%(cnt))
+        print("\n전체 데이터 개수는 %d개이며 모든 데이터를 표시합니다."%(cnt))
         fontpath='C:\\Windows\\Fonts\\NGULIM.TTF'
 
         wc = WordCloud(
