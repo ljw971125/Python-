@@ -10,6 +10,9 @@ createImsiFolder() # 임시폴더 자동생성
 createImgFolder() # 저장할 이미지 폴더 자동생성
 toKorean() # 한글화
 
+PATH = os.path.dirname(os.path.realpath(__file__))
+os.chdir(PATH)
+print(os.getcwd())
 
 while(True):
     menu()
