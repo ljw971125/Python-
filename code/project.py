@@ -531,12 +531,12 @@ def brandCircle(brand_counter):
 
         colors=['mediumslateblue','yellow','lightcoral','lime','plum','skyblue','sandybrown','springgreen','pink','aquamarine']   # 그래프 색깔  
 
-        list11=[]
+        whole_count=[]
         for i in range(len(bc_keys)):                  #bc_keys의 길이만큼 반복
             if bc_keys[i] in del_word_list:
                 pass
             else:
-                list11.append(bc_keys[i])
+                whole_count.append(bc_keys[i])
 
                                                        #↓↓데이터가 너무 많아 value값이 20이상인 데이터만 출력하는 코드↓↓
         high_keys=[]                                   #value값이 20이상인 key값을 대입하는 변수
@@ -570,17 +570,17 @@ def brandCircle(brand_counter):
             plt.close()                                    #그래프 Figure 닫기
             for i in range(0,len(high_keys)):
                 print("%s : %d"%(high_keys[i],high_values[i]))
-            print("\n전체 데이터 개수는 %d개이며 최고 많은 빈도수인 %d개의 데이터만 표시합니다."%(len(list11),len(high_keys)))
+            print("\n전체 데이터 개수는 %d개이며 최고 많은 빈도수인 %d개의 데이터만 표시합니다."%(len(whole_count),len(high_keys)))
             image = Image.open("imsiTemp\\circle.jpg")     #image 변수에 circle.png파일 대입
             image.show()                                   #image 변수에 저장된 사진 출력
 
         else:                                              #bc_key가 10보다 작거나 같을때
-            list11=[]
+            whole_count=[]			# 전체 데이터 개수를 저장해 줄 리스트 변수
             for i in range(len(bc_keys)):                  #bc_keys의 길이만큼 반복
                 if bc_keys[i] in del_word_list:
-                    pass
+                    pass			# 브랜드와 상관없는 단어 패스
                 else:
-                    list11.append(bc_keys[i])
+                    whole_count.append(bc_keys[i])
 
             for i in range(len(bc_keys)):                  #bc_keys의 길이만큼 반복
                 if bc_keys[i] in del_word_list:
@@ -608,7 +608,7 @@ def brandCircle(brand_counter):
             plt.close()                                    #그래프 Figure 닫기
             for i in range(0,len(high_keys)):
                 print("%s : %d"%(high_keys[i],high_values[i]))
-            print("\n전체 데이터 개수는 %d개이며 최고 많은 빈도수인 %d개의 데이터만 보여줍니다."%(len(list11),len(high_keys)))
+            print("\n전체 데이터 개수는 %d개이며 최고 많은 빈도수인 %d개의 데이터만 보여줍니다."%(len(whole_count),len(high_keys)))
             image = Image.open("imsiTemp\\circle.jpg")     #image 변수에 circle.png파일 대입
             image.show()                                   #image 변수에 저장된 사진 출력
 
