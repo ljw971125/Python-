@@ -6,13 +6,13 @@ import os
 import auto # 1시간마다 20개씩 자동으로 크롤링하는 모듈
 print("\n2팀 : 전장현 // 이지운 // 김민수 // 장윤종 // 장기헌\n")
 
-createImsiFolder() # 임시폴더 자동생성
-createImgFolder() # 저장할 이미지 폴더 자동생성
-toKorean() # 한글화
-
 PATH = os.path.dirname(os.path.realpath(__file__))
 os.chdir(PATH)
 print(os.getcwd())
+
+createImsiFolder() # 임시폴더 자동생성
+createImgFolder() # 저장할 이미지 폴더 자동생성
+toKorean() # 한글화
 
 while(True):
     menu()
