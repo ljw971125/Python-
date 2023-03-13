@@ -539,7 +539,7 @@ def brandCircle(brand_counter):
                 pass
             else:
                 whole_count.append(bc_keys[i])
-        #↓↓데이터가 너무 많아 value값이 20이상인 데이터만 출력하는 코드↓↓
+                                                    #↓↓데이터가 너무 많아 value값이 20이상인 데이터만 출력하는 코드↓↓
         high_keys=[]                                   #value값이 20이상인 key값을 대입하는 변수
         high_values = []                               #value값이 20이상인 value값을 대입하는 변수        
         if(len(bc_keys)>10):                           # bc_key의 길이가 10보다 클때
@@ -550,6 +550,7 @@ def brandCircle(brand_counter):
                     else:
                         high_values.append(bc_values[i])
                         high_keys.append(bc_keys[i])
+                        
                                                                                                           
             value_max = 0                                  #high_values값의 max값 저장 변수
             explode_value = []                             #explode: 원그래프 중심에서 멀어지는 정도, explode값 저장 변수
