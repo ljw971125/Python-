@@ -26,9 +26,9 @@ import shutil # 폴더 안에 파일이 존재해서 삭제가 안되기 때문�
 in_num      메뉴
  1         데이터 축적(1시간 마다)
  2         (21~23일간 8시간*3일=24시간(480개))의 최대 빈도수
- 3         (21~23일간 8시간*3일=24시간(480개))의 검색어/빈도수의 워드클라우드
+ 3         (21~23일간 8시간*3일=24시간(480개))의 검색어/빈도수의 워드 클라우드
  4         (21~23일간 8시간*3일=24시간(480개))의 검색어/빈도수의 막대 그래프
- 5         메뉴 2번에서 불러온 검색어와 일치하는 상품의 브랜드 1~10page(900개) 의 브랜드/빈도수 워드클라우드
+ 5         메뉴 2번에서 불러온 검색어와 일치하는 상품의 브랜드 1~10page(900개) 의 브랜드/빈도수 워드 클라우드
  6         메뉴 2번에서 불러온 검색어와 일치하는 상품의 브랜드 1~10page(900개) 의 브랜드/빈도수 원 그래프
  0         프로그램 종료
 '''
@@ -75,11 +75,11 @@ def createImgFolder(): # 폴더 생성
 기능설명: 한글 깨짐 해결
 '''    
 def toKorean(): # 한글 함수
-    if platform.system() == 'Darwin': # 맥
-        plt.rc('font', family='AppleGothic') 
-    elif platform.system() == 'Windows': # 윈도우
+    if platform.system() == 'Windows': # 윈도우
         plt.rc('font', family='Malgun Gothic') 
-    elif platform.system() == 'Linux': # 리눅스 (구글 콜랩)
+    elif platform.system() == 'Darwin': # 맥
+        plt.rc('font', family='AppleGothic') 
+    elif platform.system() == 'Linux': # 리눅스 
         plt.rc('font', family='Malgun Gothic') 
     plt.rcParams['axes.unicode_minus'] = False # 한글 폰트 사용시 마이너스 폰트 깨짐 해결
     print("한글화 완료\n")
@@ -99,7 +99,7 @@ def menu():
     print("2) 축적된 데이터 중 최대 많이 나온 검색어 상위 20개") 
     print("3) 인기 검색어 빈도수 워드 클라우드") 
     print("4) 인기 검색어 순위의 빈도수 막대 그래프") 
-    print("5) 인기 검색어 검색 후 브랜드 워드클라우드") #셀레니움
+    print("5) 인기 검색어 검색 후 브랜드 워드 클라우드") #셀레니움
     print("6) 인기 검색어 검색 후 브랜드 원 그래프")
     print("0) 종료")
     print("\n참고) 인기 검색어 : 2번메뉴를 의미합니다.\n")
@@ -112,7 +112,7 @@ def menu():
 기능설명: 별 50개 찍어주는 함수
 '''  
 def star():
-    print('*'*50)
+    print('*'*53)
 
 
 '''
@@ -125,7 +125,7 @@ def star():
 def subMenuIntro(in_num):
     if(in_num==2):
         star()
-        print(" 축적된 데이터 중 최대 많이 나온 검색어 상위 20개")
+        print("  축적된 데이터 중 최대 많이 나온 검색어 상위 20개")
         star()
         print()
     elif(in_num==3):
@@ -138,7 +138,7 @@ def subMenuIntro(in_num):
         star()
     elif(in_num==5):
         star()
-        print("\t인기 검색어 검색 후 브랜드 워드클라우드")
+        print("\t인기 검색어 검색 후 브랜드 워드 클라우드")
         star()
         print()
     elif(in_num==6):
@@ -148,7 +148,9 @@ def subMenuIntro(in_num):
         print()
     elif(in_num==0):
         star()
-        print("\t   이용해 주셔서 감사합니다.")
+        print("\t     프로그램을 종료합니다.\n")
+        print("\t     이용해 주셔서 감사합니다.\n")
+        print("\n2팀 : 전장현 // 이지운 // 김민수 // 장윤종 // 장기헌\n")
         star()
 
 
@@ -161,9 +163,9 @@ def subMenuIntro(in_num):
 
             in_num      func_name           설명
             2           searchTop           빈도수 상위 20개의 검색어
-            3           mkWordcloud         카운터 값을 받아서 워드클라우드 생성
+            3           mkWordcloud         카운터 값을 받아서 워드 클라우드 생성
             4           showBar             카운터 값을 받아서 막대그래프 생성
-            5           mkWordcloud         카운터 값을 받아서 워드클라우드 생성
+            5           mkWordcloud         카운터 값을 받아서 워드 클라우드 생성
             6           brandCircle         카운터 값을 받아서 원 그래프 생성
             0           없음('')            임시 폴더 삭제                
 반환값 : 없음
@@ -263,7 +265,7 @@ def saveImg(in_num,image_name):     # 이미지 저장
         answer=imgSave(imsiImg_name,image_name)
         return answer
     
-    elif(in_num==5) : # 워드클라우드
+    elif(in_num==5) : # 워드 클라우드
         imsiImg_name='wordcloud.jpg'
         answer=imgSave(imsiImg_name,image_name)
         return answer
@@ -297,7 +299,7 @@ def imgSave(imsiImg_name,image_name):
         else:
             image = Image.open(("imsiTemp\\"+imsiImg_name))# imsiTemp폴더 안의 이미지를 열어서 image변수에 저장
             image.save(("saveImg\\"+image_name+".jpg"),"JPEG") # image변수를 현재경로의 매개변수 값으로 저장
-            print("\n경로 %s\saveImg\%s\n%s이름의 이미지가 저장되었습니다."%(os.getcwd(),image_name,image_name))
+            print("\n경로 %s\saveImg\%s.jpg 이미지가 저장되었습니다."%(os.getcwd(),image_name))
             no_rename='no'
         return no_rename
 
@@ -537,8 +539,7 @@ def brandCircle(brand_counter):
                 pass
             else:
                 whole_count.append(bc_keys[i])
-
-                                                       #↓↓데이터가 너무 많아 value값이 20이상인 데이터만 출력하는 코드↓↓
+        #↓↓데이터가 너무 많아 value값이 20이상인 데이터만 출력하는 코드↓↓
         high_keys=[]                                   #value값이 20이상인 key값을 대입하는 변수
         high_values = []                               #value값이 20이상인 value값을 대입하는 변수        
         if(len(bc_keys)>10):                           # bc_key의 길이가 10보다 클때
@@ -549,7 +550,7 @@ def brandCircle(brand_counter):
                     else:
                         high_values.append(bc_values[i])
                         high_keys.append(bc_keys[i])
-                                                               
+                                                                                                          
             value_max = 0                                  #high_values값의 max값 저장 변수
             explode_value = []                             #explode: 원그래프 중심에서 멀어지는 정도, explode값 저장 변수
 
@@ -563,8 +564,9 @@ def brandCircle(brand_counter):
                 else:                                      #조건을 만족하지 못한다면
                     explode_value.append(0)                #explode_value값에 0 대입
             
+            plt.title("검색한 상품 브랜드의 점유율 원 그래프",fontsize=15)
                                                         #원그래프 Figure 생성, high_values대입, labels에 high_keys값 대입, explode에 explode_value값 대입, autopct는 비율표시        
-            plt.pie(high_values, labels=high_keys, explode=explode_value, autopct='%.2f', colors=colors)
+            plt.pie(high_values, labels=high_keys, explode=explode_value, autopct='%.2f%%', colors=colors, shadow=True)
 
             plt.savefig('imsiTemp\\circle.jpg')            #imsiTemp 폴더에 원그래프.jpg 
             plt.close()                                    #그래프 Figure 닫기
@@ -600,10 +602,10 @@ def brandCircle(brand_counter):
                     explode_value.append(0.1)              #explode_value값에 0.1 대입, 0.1값은 중심에서 멀어지는 정도의 값이다.
                 else:                                      #조건을 만족하지 못한다면
                     explode_value.append(0)                #explode_value값에 0 대입
-            
-                                                        #원그래프 Figure 생성, high_values대입, labels에 high_keys값 대입, explode에 explode_value값 대입, autopct는 비율표시        
-            plt.pie(high_values, labels=high_keys, explode=explode_value, autopct='%.2f', colors=colors)
 
+            plt.title("검색한 상품 브랜드의 점유율 원 그래프",fontsize=15)
+                                                        #원그래프 Figure 생성, high_values대입, labels에 high_keys값 대입, explode에 explode_value값 대입, autopct는 비율표시        
+            plt.pie(high_values, labels=high_keys, explode=explode_value, autopct='%.2f%%', colors=colors, shadow=True)
             plt.savefig('imsiTemp\\circle.jpg')            #imsiTemp 폴더에 원그래프.jpg 
             plt.close()                                    #그래프 Figure 닫기
             for i in range(0,len(high_keys)):
@@ -625,7 +627,7 @@ def brandCircle(brand_counter):
 기능설명:   imsiTemp폴더 안에 이미지 저장 후 이미지 불러오기
 ''' 
 
-# 3일간 검색어 순위 워드 클라우드, 상품 검색 후 브랜드 워드클라우드
+# 3일간 검색어 순위 워드 클라우드, 상품 검색 후 브랜드 워드 클라우드
 def mkWordCloud(func_counter):
 
     if(os.path.isfile("imsiTemp\\wordcloud.jpg")):        #만약 circle.png라는 파일이 있으면

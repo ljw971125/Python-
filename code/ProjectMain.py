@@ -1,10 +1,14 @@
+print("*"*53)
+print("\t     프로그램을 시작합니다.\n")
+print("\n2팀 : 전장현 // 이지운 // 김민수 // 장윤종 // 장기헌\n")
+print("*"*53)
+
 from module import moduleinstall
 moduleinstall() # 모듈 통합 설치
 from project import*
 import os
 
 import auto # 1시간마다 20개씩 자동으로 크롤링하는 모듈
-print("\n2팀 : 전장현 // 이지운 // 김민수 // 장윤종 // 장기헌\n")
 
 PATH = os.path.dirname(os.path.realpath(__file__))
 os.chdir(PATH)
@@ -13,6 +17,7 @@ print(os.getcwd())
 createImsiFolder() # 임시폴더 자동생성
 createImgFolder() # 저장할 이미지 폴더 자동생성
 toKorean() # 한글화
+
 
 while(True):
     menu()
@@ -52,12 +57,12 @@ while(True):
         e_list.append(str(value_e).split())
         e_munja = e_list[0][-1].split("'")
 
-        if (len(e_munja[1])>1):
-            print("한 자리 정수만 입력해주세요.")
+        if (len(e_munja[1])>0):
+            print("\n소숫점이 아닌 0~6을 입력해주세요.\n")
         
         elif e_munja[1] == '' :
             # 스페이스바 일때
-            print('공백입니다.\n')
+            print('\n공백입니다.\n')
 
         elif e_munja[1] == '' :
             # 공백일때
